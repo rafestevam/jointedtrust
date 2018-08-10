@@ -72,6 +72,22 @@ th:lang="${#locale.language}">
 
               </div>
             </div>
+            
+            <!-- Language Selector -->
+            <div class="form-group">
+
+              <!-- Label -->
+              <label><span th:text="#{pages.loginpage.form.field.selectlang}"></span></label>
+
+              <!-- Select -->
+              <select class="form-control" id="locales">
+              	<option value=""></option>
+              	<option value="pt" th:text="#{lang.pt}"></option>
+              	<option value="en" th:text="#{lang.en}"></option>
+              	<option value="es" th:text="#{lang.es}"></option>
+              </select>
+
+            </div>
 
             <!-- Submit -->
             <button class="btn btn-lg btn-block btn-primary mb-3">
@@ -114,6 +130,17 @@ th:lang="${#locale.language}">
 
     <!-- Theme JS -->
     <script th:src="@{/assets/js/theme.min.js}"></script>
+    
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	$("#locales").change(function(){
+    		var selectedOption = $('#locales').val();
+    		if(selectedOption != ''){
+    			window.location.replace('login?lang=' + selectedOption);
+    		}
+    	});
+    });
+    </script>
 
   </body>
 </html>
