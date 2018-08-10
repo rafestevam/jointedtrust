@@ -1,0 +1,129 @@
+<!doctype html>
+<html 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns="http://www.w3.org/1999/xhtml"
+th:lang="${#locale.language}">
+  <head th:insert="fragments/head.html :: head('JointedTrust :: Sign-up')"></head>
+  
+  <body class="d-flex align-items-center bg-white border-top-2 border-primary">
+
+    <!-- CONTENT
+    ================================================== -->
+    <div class="container">
+    
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-5 col-xl-4 my-5">
+          
+          <!-- Heading -->
+          <h1 class="display-4 text-center mb-3">
+            <span th:text="#{pages.signup.title.heading}"></span>
+          </h1>
+          
+          <!-- Subheading -->
+          <p class="text-muted text-center mb-5">
+            <span th:text="#{pages.signup.title.subheading}"></span>
+          </p>
+
+          <!-- Form -->
+          <form th:action="@{/account/create}" method="POST" th:object="${user}">
+          
+          	<!-- Username -->
+          	<div class="form-group">
+          		
+          		<label>
+          			<span th:text="#{pages.common.form.field.username}"></span>
+          		</label>
+          		
+          		<input type="text" class="form-control" th:placeholder="#{pages.signup.form.placeholder.username}" th:field="*{username}" th:errorclass="is-invalid">
+          		<div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+          		<small>
+          			<span th:text="#{pages.common.form.small.username}"></span>
+          		</small>
+          		
+          	</div>
+
+            <!-- Email address -->
+            <div class="form-group">
+
+              <!-- Label -->
+              <label>
+                <span th:text="#{pages.common.form.field.email}"></span>
+              </label>
+
+              <!-- Input -->
+              <input type="email" class="form-control" th:placeholder="#{pages.common.form.placeholder.email}">
+
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+
+              <!-- Label -->
+              <label>
+                <span th:text="#{pages.common.form.field.password}"></span>
+              </label>
+
+              <!-- Input group -->
+              <div class="input-group input-group-merge">
+
+                <!-- Input -->
+                <input type="password" class="form-control form-control-appended" th:placeholder="#{pages.common.form.placeholder.password}">
+                <!-- Icon -->
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    <i class="fe fe-eye"></i>
+                  </span>
+                </div>
+				<small>
+          			<span th:text="#{pages.signup.form.small.password}"></span>
+          		</small>
+				
+
+              </div>
+            </div>
+            
+            <!-- Confirm Password -->
+            <div class="form-group">
+
+              <!-- Label -->
+              <label>
+                <span th:text="#{pages.signup.form.field.confpass}"></span>
+              </label>
+
+              <!-- Input group -->
+              <div class="input-group input-group-merge">
+
+                <!-- Input -->
+                <input type="password" class="form-control form-control-appended" th:placeholder="#{pages.signup.form.placeholder.confpass}">
+                <!-- Icon -->
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    <i class="fe fe-eye"></i>
+                  </span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button class="btn btn-lg btn-block btn-primary mb-3">
+              <span th:text="#{pages.signup.form.button.signup}"></span>
+            </button>
+
+            <!-- Link -->
+            <div class="text-center">
+              <small class="text-muted text-center">
+                <span th:text="#{pages.signup.form.link.signin.question}"></span> <a th:href="@{/login}"><span th:text="#{pages.signup.form.link.signin}"></span></a>.
+              </small>
+            </div>
+
+          </form>
+
+        </div>
+      </div> <!-- / .row -->
+    </div> <!-- / .container -->
+
+    <th:block th:include="fragments/scripts.html"></th:block>
+
+  </body>
+</html>

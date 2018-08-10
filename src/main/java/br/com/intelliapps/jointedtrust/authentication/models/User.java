@@ -1,7 +1,14 @@
 package br.com.intelliapps.jointedtrust.authentication.models;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -12,6 +19,7 @@ import javax.validation.constraints.Size;
 public class User {
 	
 	@Id
+	@Column(name="guid", length=100)
 	private String guid;
 	
 	@NotNull
@@ -23,7 +31,8 @@ public class User {
 	@Size(max=500)
 	private String lastname;
 	
-	@NotNull @Email
+	@NotNull 
+	@Email
 	private String mail;
 	
 	@NotNull
@@ -31,6 +40,14 @@ public class User {
 	
 	@NotNull
 	private String confPass;
+	
+	private Boolean locked;
+	
+	private Boolean activated;
+	
+	@ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST})
+	@JoinTable(name="jt_user_roles_tbl", joinColumns=@JoinColumn(name="user_guid", referencedColumnName="guid"), inverseJoinColumns=@JoinColumn(name="role_guid",referencedColumnName="guid"))
+	private Set<Role> roles;
 
 	public String getGuid() {
 		return guid;
@@ -86,6 +103,30 @@ public class User {
 
 	public void setConfPass(String confPass) {
 		this.confPass = confPass;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public Boolean getLocked() {
+		return locked;
+	}
+
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
+	}
+
+	public Boolean getActivated() {
+		return activated;
+	}
+
+	public void setActivated(Boolean activated) {
+		this.activated = activated;
 	}
 	
 }

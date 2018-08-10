@@ -15,12 +15,12 @@ th:lang="${#locale.language}">
               
           <!-- Heading -->
           <h1 class="display-4 text-center mb-3">
-			<span th:text="#{pages.loginpage.title.greeting}"></span>
+			<span th:text="#{pages.login.title.greeting}"></span>
           </h1>
           
           <!-- Subheading -->
           <p class="text-muted text-center mb-5">
-			<span th:text="#{pages.loginpage.title.subtitle}"></span>
+			<span th:text="#{pages.login.title.subtitle}"></span>
           </p>
           
           <!-- Form -->
@@ -30,10 +30,10 @@ th:lang="${#locale.language}">
             <div class="form-group">
 
               <!-- Label -->
-              <label><span th:text="#{pages.loginpage.form.field.email}"></span></label>
+              <label><span th:text="#{pages.common.form.field.username}"></span></label>
 
               <!-- Input -->
-              <input type="email" class="form-control" th:placeholder="#{pages.loginpage.form.placeholder.email}">
+              <input type="email" class="form-control" th:placeholder="#{pages.common.form.placeholder.username}">
 
             </div>
 
@@ -44,14 +44,14 @@ th:lang="${#locale.language}">
                 <div class="col">
                       
                   <!-- Label -->
-                  <label><span th:text="#{pages.loginpage.form.field.password}"></span></label>
+                  <label><span th:text="#{pages.common.form.field.password}"></span></label>
 
                 </div>
                 <div class="col-auto">
                   
                   <!-- Help text -->
                   <a href="password-reset-cover.html" class="form-text small text-muted">
-                    <span th:text="#{pages.loginpage.form.link.resetpassword}"></span>
+                    <span th:text="#{pages.login.form.link.resetpassword}"></span>
                   </a>
 
                 </div>
@@ -61,7 +61,7 @@ th:lang="${#locale.language}">
               <div class="input-group input-group-merge">
 
                 <!-- Input -->
-                <input type="password" class="form-control form-control-appended" th:placeholder="#{pages.loginpage.form.placeholder.password}">
+                <input type="password" class="form-control form-control-appended" th:placeholder="#{pages.common.form.placeholder.password}">
 
                 <!-- Icon -->
                 <div class="input-group-append">
@@ -77,11 +77,11 @@ th:lang="${#locale.language}">
             <div class="form-group">
 
               <!-- Label -->
-              <label><span th:text="#{pages.loginpage.form.field.selectlang}"></span></label>
+              <label><span th:text="#{pages.login.form.field.selectlang}"></span></label>
 
               <!-- Select -->
-              <select class="form-control" id="locales">
-              	<option value=""></option>
+              <select class="form-control" id="locales" data-toggle="select">
+              	<option value="" th:text="#{lang.choose}"></option>
               	<option value="pt" th:text="#{lang.pt}"></option>
               	<option value="en" th:text="#{lang.en}"></option>
               	<option value="es" th:text="#{lang.es}"></option>
@@ -91,13 +91,13 @@ th:lang="${#locale.language}">
 
             <!-- Submit -->
             <button class="btn btn-lg btn-block btn-primary mb-3">
-              <span th:text="#{pages.loginpage.form.button.signin}"></span>
+              <span th:text="#{pages.login.form.button.signin}"></span>
             </button>
 
             <!-- Link -->
             <p class="text-center">
               <small class="text-muted text-center">
-                <span th:text="#{pages.loginpage.form.link.signup.question}"></span> <a href="sign-up-cover.html"><span th:text="#{pages.loginpage.form.link.signup}"></span></a>.
+                <span th:text="#{pages.login.form.link.signup.question}"></span> <a th:href="@{/account/signup}"><span th:text="#{pages.login.form.link.signup}"></span></a>.
               </small>
             </p>
             
@@ -113,24 +113,8 @@ th:lang="${#locale.language}">
       </div> <!-- / .row -->
     </div>
 
-    <!-- JAVASCRIPT
-    ================================================== -->
-    <!-- Libs JS -->
-    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
-    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/assets/libs/chart.js/dist/Chart.min.js}"></script>
-    <script th:src="@{/assets/libs/chart.js/Chart.extension.min.js}"></script>
-    <script th:src="@{/assets/libs/highlight/highlight.pack.min.js}"></script>
-    <script th:src="@{/assets/libs/flatpickr/dist/flatpickr.min.js}"></script>
-    <script th:src="@{/assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js}"></script>
-    <script th:src="@{/assets/libs/list.js/dist/list.min.js}"></script>
-    <script th:src="@{/assets/libs/quill/dist/quill.min.js}"></script>
-    <script th:src="@{/assets/libs/dropzone/dist/min/dropzone.min.js}"></script>
-    <script th:src="@{/assets/libs/select2/dist/js/select2.min.js}"></script>
-
-    <!-- Theme JS -->
-    <script th:src="@{/assets/js/theme.min.js}"></script>
-    
+   	<th:block th:include="fragments/scripts.html"></th:block>
+   	
     <script type="text/javascript">
     $(document).ready(function(){
     	$("#locales").change(function(){
