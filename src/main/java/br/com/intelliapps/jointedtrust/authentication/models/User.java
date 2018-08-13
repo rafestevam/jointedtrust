@@ -11,8 +11,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="apl_user_tbl")
@@ -22,24 +20,18 @@ public class User {
 	@Column(name="guid", length=100)
 	private String guid;
 	
-	@NotNull
 	private String username;
 	
-	@NotNull @Size(max=500)
 	private String name;
 	
-	@Size(max=500)
 	private String lastname;
 	
-	@NotNull 
 	@Email
 	private String mail;
 	
-	@NotNull
 	private String password;
 	
-	@NotNull
-	private String confPass;
+	private String confpass;
 	
 	private Boolean locked;
 	
@@ -97,12 +89,12 @@ public class User {
 		this.password = password;
 	}
 
-	public String getConfPass() {
-		return confPass;
+	public String getConfpass() {
+		return confpass;
 	}
 
-	public void setConfPass(String confPass) {
-		this.confPass = confPass;
+	public void setConfpass(String confpass) {
+		this.confpass = confpass;
 	}
 
 	public Set<Role> getRoles() {

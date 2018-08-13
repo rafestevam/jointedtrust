@@ -25,7 +25,7 @@ th:lang="${#locale.language}">
           </p>
 
           <!-- Form -->
-          <form th:action="@{/account/create}" method="POST" th:object="${user}">
+          <form th:action="@{/account/signup}" method="POST" th:object="${user}">
           
           	<!-- Username -->
           	<div class="form-group">
@@ -34,10 +34,10 @@ th:lang="${#locale.language}">
           			<span th:text="#{pages.common.form.field.username}"></span>
           		</label>
           		
-          		<input type="text" class="form-control" th:placeholder="#{pages.signup.form.placeholder.username}" th:field="*{username}" th:errorclass="is-invalid">
+          		<input type="text" class="form-control" th:placeholder="#{pages.common.form.placeholder.username}" th:field="*{username}" th:errorclass="is-invalid">
           		<div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
           		<small>
-          			<span th:text="#{pages.common.form.small.username}"></span>
+          			<span th:text="#{pages.signup.form.small.username}"></span>
           		</small>
           		
           	</div>
@@ -51,7 +51,8 @@ th:lang="${#locale.language}">
               </label>
 
               <!-- Input -->
-              <input type="email" class="form-control" th:placeholder="#{pages.common.form.placeholder.email}">
+              <input type="email" class="form-control" th:placeholder="#{pages.common.form.placeholder.email}" th:field="*{mail}" th:errorclass="is-invalid">
+  	    		<div class="invalid-feedback" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></div>
 
             </div>
 
@@ -67,13 +68,17 @@ th:lang="${#locale.language}">
               <div class="input-group input-group-merge">
 
                 <!-- Input -->
-                <input type="password" class="form-control form-control-appended" th:placeholder="#{pages.common.form.placeholder.password}">
+                <input type="password" class="form-control form-control-appended" th:placeholder="#{pages.common.form.placeholder.password}" th:field="*{password}" th:errorclass="is-invalid">
                 <!-- Icon -->
                 <div class="input-group-append">
-                  <span class="input-group-text">
+                  <span class="input-group-text" th:if="${#fields.hasErrors('password')}" style="border-color: red;">
+                    <i class="fe fe-eye"></i>
+                  </span>
+                  <span class="input-group-text" th:unless="${#fields.hasErrors('password')}">
                     <i class="fe fe-eye"></i>
                   </span>
                 </div>
+  	    		<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
 				<small>
           			<span th:text="#{pages.signup.form.small.password}"></span>
           		</small>
@@ -94,13 +99,17 @@ th:lang="${#locale.language}">
               <div class="input-group input-group-merge">
 
                 <!-- Input -->
-                <input type="password" class="form-control form-control-appended" th:placeholder="#{pages.signup.form.placeholder.confpass}">
+                <input type="password" class="form-control form-control-appended" th:placeholder="#{pages.signup.form.placeholder.confpass}" th:field="*{confpass}" th:errorclass="is-invalid">
                 <!-- Icon -->
                 <div class="input-group-append">
-                  <span class="input-group-text">
+                  <span class="input-group-text" th:if="${#fields.hasErrors('confpass')}" style="border-color: red;">
+                    <i class="fe fe-eye"></i>
+                  </span>
+                  <span class="input-group-text" th:unless="${#fields.hasErrors('confpass')}">
                     <i class="fe fe-eye"></i>
                   </span>
                 </div>
+  	    		<div class="invalid-feedback" th:if="${#fields.hasErrors('confpass')}" th:errors="*{confpass}"></div>
 
               </div>
             </div>

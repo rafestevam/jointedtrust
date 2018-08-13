@@ -23,6 +23,8 @@ th:lang="${#locale.language}">
 			<span th:text="#{pages.login.title.subtitle}"></span>
           </p>
           
+          <div class="alert alert-success" th:if="${registrationMessage}" th:text="${registrationMessage}"></div>
+          
           <!-- Form -->
           <form>
 

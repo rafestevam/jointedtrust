@@ -31,19 +31,24 @@ public class UserServiceImpl implements UserService {
 		roles.add(new Role(this.getGuid(), "ROLE_ADMIN"));
 		
 		String encodedPass = encoder.encode(user.getPassword());
-		user.setGuid(this.getGuid());
 		user.setPassword(encodedPass);
-		user.setConfPass(encodedPass);
+		user.setConfpass(encodedPass);
 		user.setRoles(roles);
 		
 		userRepository.save(user);		
 	}
 	
+	public boolean existsByUsername(String username) {
+		return userRepository.existsByUsername(username);
+	}
+
+	public boolean existsByEmail(String email) {
+		return userRepository.existsByEmail(email);
+	}
+
 	private String getGuid() {
 		UUID uuid = UUID.randomUUID();
 		return uuid.toString();
 	}
-
-
 	
 }
