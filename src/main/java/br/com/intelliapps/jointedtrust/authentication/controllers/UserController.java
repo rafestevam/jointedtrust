@@ -11,11 +11,13 @@ import org.springframework.context.MessageSource;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.intelliapps.jointedtrust.authentication.models.User;
@@ -87,6 +89,17 @@ public class UserController {
 		rAttr.addFlashAttribute("registrationMessage", registrationMessage);
 			
 		return "redirect:/login";
+	}
+	
+	@RequestMapping(value="/confirm", method=RequestMethod.GET)
+	public String showConfirmationPage(Model model, @RequestParam("token") String guid) {
+		
+		User user = userService.findByGuid(guid);
+		
+		model.addAttribute("nameofuser", user.getName() + 
+				(user.getLastname() != null ? " " + user.getLastname() : "") );
+		
+		return "confirmation";
 	}
 	
 	private String getGuid() {

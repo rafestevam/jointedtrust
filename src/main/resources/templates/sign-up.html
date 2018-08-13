@@ -55,6 +55,34 @@ th:lang="${#locale.language}">
   	    		<div class="invalid-feedback" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></div>
 
             </div>
+            
+            <!-- Name -->
+            <div class="form-group">
+
+              <!-- Label -->
+              <label>
+                <span th:text="#{pages.signup.form.field.name}"></span>
+              </label>
+
+              <!-- Input -->
+              <input type="text" class="form-control" th:placeholder="#{pages.signup.form.placeholder.name}" th:field="*{name}" th:errorclass="is-invalid">
+  	    		<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+
+            </div>
+            
+            <!-- Last Name -->
+            <div class="form-group">
+
+              <!-- Label -->
+              <label>
+                <span th:text="#{pages.signup.form.field.lastname}"></span>
+              </label>
+
+              <!-- Input -->
+              <input type="text" class="form-control" th:placeholder="#{pages.signup.form.placeholder.lastname}" th:field="*{lastname}" th:errorclass="is-invalid">
+  	    		<div class="invalid-feedback" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
+
+            </div>
 
             <!-- Password -->
             <div class="form-group">

@@ -20,10 +20,23 @@ public class UserValidator implements Validator {
 		//Validating if fields are empty
 		ValidationUtils.rejectIfEmpty(errors, "username", "valid.user.error.username.empty", new String[] {});
 		ValidationUtils.rejectIfEmpty(errors, "mail", "valid.user.error.mail.empty", new String[] {});
+		ValidationUtils.rejectIfEmpty(errors, "name", "valid.user.error.name.empty", new String[] {});
 		ValidationUtils.rejectIfEmpty(errors, "password", "valid.user.error.password.empty", new String[] {});
 		ValidationUtils.rejectIfEmpty(errors, "confpass", "valid.user.error.confpass.empty", new String[] {});
 		
 		User user = (User) target;
+		
+		if(user.getName() != null) {
+			if(user.getName().length() > 500) {
+				errors.reject("name", "valid.user.error.name.nametoobig");
+			}
+		}
+		
+		if(user.getLastname() != null) {
+			if(user.getLastname().length() > 500) {
+				errors.reject("name", "valid.user.error.lastname.lastnametoobig");
+			}
+		}
 		
 		if(user.getPassword() != null && user.getConfpass() != null) {
 			if(!user.getPassword().equals(user.getConfpass())) {
