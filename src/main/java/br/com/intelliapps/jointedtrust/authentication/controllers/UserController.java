@@ -99,7 +99,23 @@ public class UserController {
 		model.addAttribute("nameofuser", user.getName() + 
 				(user.getLastname() != null ? " " + user.getLastname() : "") );
 		
+		model.addAttribute(user);
+		
 		return "confirmation";
+	}
+	
+	@RequestMapping(value="/confirm", method=RequestMethod.POST)
+	public String confirmUser(User userToken, RedirectAttributes rAttr, Model model) {
+		
+		User user = userService.findByGuid(userToken.getGuid());
+		user.setActivated(true);
+		
+		userService.save(user);
+		
+		String registrationMessage = messageSource.getMessage("notification.user.activate.success", new String[] {}, locale);
+		rAttr.addFlashAttribute("registrationMessage", registrationMessage);
+		
+		return "redirect:/login";
 	}
 	
 	private String getGuid() {

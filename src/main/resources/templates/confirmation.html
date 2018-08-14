@@ -12,7 +12,7 @@ th:lang="${#locale.language}">
 			<div class="row justify-content-center">
 
 				<div class="col-12 col-lg-10 col-xl-8">
-				
+		            <form th:action="@{/account/confirm}" method="POST" th:object="${user}">
 		            <!-- Header -->
 		            <div class="header mt-md-5">
 		              <div class="header-body">
@@ -31,16 +31,17 @@ th:lang="${#locale.language}">
 		
 		                  </div>
 		                  <div class="col-auto">
+		                  	<input id="guid" type="hidden" th:field="*{guid}">
 		                    <!-- Confirmation Button -->
-		                  	<a href="#!" class="btn btn-primary ml-2">
+		                  	<button type="submit" class="btn btn-primary ml-2">
 		                      <span th:text="#{pages.confirmation.button.confirm}"></span>
-		                    </a>
+		                    </button>
 		                  </div>
 		                </div> <!-- / .row -->
 		              </div>
 		            </div>
+					</form>
 		            
-		            <form th:action="@{/account/confirmation}" method="POST" th:object="${user}">
 		            	
 		           		<!-- Content -->
             			<div class="card card-body p-5">
@@ -59,7 +60,6 @@ th:lang="${#locale.language}">
             			
             			</div>
 		            
-					</form>
 					
 				</div>
 			

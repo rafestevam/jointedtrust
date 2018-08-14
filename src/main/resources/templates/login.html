@@ -24,9 +24,12 @@ th:lang="${#locale.language}">
           </p>
           
           <div class="alert alert-success" th:if="${registrationMessage}" th:text="${registrationMessage}"></div>
+          <div class="alert alert-danger text-center" th:if="${param.error}">
+			  <span th:text="#{valid.user.error.login.failed}"></span>
+		  </div>
           
           <!-- Form -->
-          <form>
+          <form th:action="@{/login}" method="POST" th:prependId="false">
 
             <!-- Email address -->
             <div class="form-group">
@@ -35,7 +38,7 @@ th:lang="${#locale.language}">
               <label><span th:text="#{pages.common.form.field.username}"></span></label>
 
               <!-- Input -->
-              <input type="email" class="form-control" th:placeholder="#{pages.common.form.placeholder.username}">
+              <input type="text" class="form-control" id="username" name="username" th:placeholder="#{pages.common.form.placeholder.username}">
 
             </div>
 
@@ -63,7 +66,7 @@ th:lang="${#locale.language}">
               <div class="input-group input-group-merge">
 
                 <!-- Input -->
-                <input type="password" class="form-control form-control-appended" th:placeholder="#{pages.common.form.placeholder.password}">
+                <input type="password" id="password" name="password" class="form-control form-control-appended" th:placeholder="#{pages.common.form.placeholder.password}">
 
                 <!-- Icon -->
                 <div class="input-group-append">

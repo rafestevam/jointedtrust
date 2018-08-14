@@ -9,6 +9,8 @@ public interface UserRepository extends JpaRepository<User, String> {
 
 	public User findByGuid(String guid);
 	
+	public User findByUsername(String username);
+	
 	@Query("select case when count(*) > 0 then 'true' else 'false' end from User u where u.username = ?1")
 	public boolean existsByUsername(String username);
 	

@@ -50,5 +50,10 @@ public class UserServiceImpl implements UserService {
 		UUID uuid = UUID.randomUUID();
 		return uuid.toString();
 	}
+
+	@Override
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
 	
 }
