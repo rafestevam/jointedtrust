@@ -7,12 +7,14 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.intelliapps.jointedtrust.authentication.models.Role;
 import br.com.intelliapps.jointedtrust.authentication.models.User;
 import br.com.intelliapps.jointedtrust.authentication.repositories.UserRepository;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
@@ -30,10 +32,12 @@ public class UserServiceImpl implements UserService {
 		Set<Role> roles = new HashSet<Role>();
 		roles.add(new Role(this.getGuid(), "ROLE_ADMIN"));
 		
-		String encodedPass = encoder.encode(user.getPassword());
-		user.setPassword(encodedPass);
-		user.setConfpass(encodedPass);
-		user.setRoles(roles);
+		if(user.getPassword().length() < 11) {
+			String encodedPass = encoder.encode(user.getPassword());
+			user.setPassword(encodedPass);
+			user.setConfpass(encodedPass);
+			user.setRoles(roles);
+		}
 		
 		userRepository.save(user);		
 	}
