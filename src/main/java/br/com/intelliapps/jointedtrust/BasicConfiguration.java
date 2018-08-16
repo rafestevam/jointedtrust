@@ -5,10 +5,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.intelliapps.jointedtrust.authentication.configs.SecurityConfiguration;
 import br.com.intelliapps.jointedtrust.authentication.controllers.LoginController;
-import br.com.intelliapps.jointedtrust.authentication.models.User;
-import br.com.intelliapps.jointedtrust.authentication.repositories.UserRepository;
+import br.com.intelliapps.jointedtrust.authentication.models.UserEntity;
+import br.com.intelliapps.jointedtrust.authentication.repositories.UserEntityRepository;
 import br.com.intelliapps.jointedtrust.authentication.services.UserService;
-import br.com.intelliapps.jointedtrust.core.dashboard.controllers.DashboardController;
+import br.com.intelliapps.jointedtrust.core.controllers.DashboardController;
+import br.com.intelliapps.jointedtrust.core.controllers.ProfileController;
+import br.com.intelliapps.jointedtrust.core.models.Profile;
+import br.com.intelliapps.jointedtrust.core.repositories.ProfileRepository;
+import br.com.intelliapps.jointedtrust.core.services.ProfileService;
 import br.com.intelliapps.jointedtrust.main.configs.WebConfig;
 import br.com.intelliapps.jointedtrust.main.controllers.HomeController;
 
@@ -18,18 +22,22 @@ WebConfig.class,
 SecurityConfiguration.class,
 
 //Models
-User.class,
+UserEntity.class,
+Profile.class,
 
 //Repositories
-UserRepository.class,
+UserEntityRepository.class,
+ProfileRepository.class,
 
 //Services
 UserService.class,
+ProfileService.class,
 
 //Controllers
 HomeController.class,
 LoginController.class,
 DashboardController.class,
+ProfileController.class
 
 })
 public class BasicConfiguration {

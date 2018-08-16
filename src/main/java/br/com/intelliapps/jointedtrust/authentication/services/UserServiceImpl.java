@@ -10,24 +10,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.intelliapps.jointedtrust.authentication.models.Role;
-import br.com.intelliapps.jointedtrust.authentication.models.User;
-import br.com.intelliapps.jointedtrust.authentication.repositories.UserRepository;
+import br.com.intelliapps.jointedtrust.authentication.models.UserEntity;
+import br.com.intelliapps.jointedtrust.authentication.repositories.UserEntityRepository;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserEntityRepository userRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
-	public User findByGuid(String guid) {
+	public UserEntity findByGuid(String guid) {
 		return userRepository.findByGuid(guid);
 	}
 	
-	public void save(User user) {
+	public void save(UserEntity user) {
 		
 		Set<Role> roles = new HashSet<Role>();
 		roles.add(new Role(this.getGuid(), "ROLE_ADMIN"));
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findByUsername(String username) {
+	public UserEntity findByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 	

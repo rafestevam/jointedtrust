@@ -1,14 +1,14 @@
 package br.com.intelliapps.jointedtrust.authentication.services;
 
-import br.com.intelliapps.jointedtrust.authentication.models.User;
+import br.com.intelliapps.jointedtrust.authentication.models.UserEntity;
 
 public interface UserService {
 	
-	public void save(User user);
+	public void save(UserEntity user);
 
-	public User findByGuid(String guid);
+	public UserEntity findByGuid(String guid);
 	
-	public User findByUsername(String username);
+	public UserEntity findByUsername(String username);
 	
 	public boolean existsByUsername(String username);
 	

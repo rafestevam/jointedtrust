@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+th:lang="${#locale.language}">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+<div class="dropdown" th:fragment="usermenu">
+        
+  <!-- Toggle -->
+  <a href="#" class="avatar avatar-sm avatar-online dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <img src="assets/img/avatars/profiles/avatar-1.jpg" alt="..." class="avatar-img rounded-circle">
+  </a>
+
+  <!-- Menu -->
+  <div class="dropdown-menu dropdown-menu-right">
+    <a href="profile-posts.html" class="dropdown-item">Profile</a>
+    <a href="settings.html" class="dropdown-item">Settings</a>
+    <hr class="dropdown-divider">
+    <a href="sign-in.html" class="dropdown-item">Logout</a>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,20 +1,25 @@
 package br.com.intelliapps.jointedtrust.authentication.models;
 
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
+import br.com.intelliapps.jointedtrust.core.models.Profile;
+
 @Entity
 @Table(name="apl_user_tbl")
-public class User {
+public class UserEntity {
 	
 	@Id
 	@Column(name="guid", length=100)
@@ -40,6 +45,9 @@ public class User {
 	@ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinTable(name="jt_user_roles_tbl", joinColumns=@JoinColumn(name="user_guid", referencedColumnName="guid"), inverseJoinColumns=@JoinColumn(name="role_guid",referencedColumnName="guid"))
 	private Set<Role> roles;
+	
+	@OneToOne(mappedBy="user", cascade={CascadeType.MERGE, CascadeType.PERSIST}, optional=false, fetch=FetchType.LAZY)
+	private Profile profile;
 
 	public String getGuid() {
 		return guid;
@@ -119,6 +127,16 @@ public class User {
 
 	public void setActivated(Boolean activated) {
 		this.activated = activated;
+	}
+	
+	public void createProfile() {
+		Calendar calendar = Calendar.getInstance();
+		this.profile = new Profile(this.name, this.lastname, calendar.getTime());
+		this.profile.setUser(this);
+	}
+	
+	public Profile getProfile() {
+		return profile;
 	}
 	
 }

@@ -1,19 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html 
 xmlns:th="http://www.thymeleaf.org" 
-xmlns="http://www.w3.org/1999/xhtml"
 th:lang="${#locale.language}">
 
   <head th:insert="fragments/head.html :: head('JointedTrust :: Login')"></head>
   <body class="d-flex align-items-center bg-white border-top-2 border-primary">
-
-<div class="alert alert-dismissable alert-danger bad-login"
-		th:if="${param.error != null}">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<!-- The real error is included as a tooltip, i.e. the title attribute. -->
-		<p th:title="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">Invalid
-			username or password.</p>
-	</div>
 
     <!-- CONTENT
     ================================================== -->

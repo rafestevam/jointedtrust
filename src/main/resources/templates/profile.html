@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+th:lang="${#locale.language}">
+<head th:insert="fragments/head.html :: head('JointedTrust')"></head>
+<body th:fragment="basicLayout">
+
+	<nav th:replace="fragments/sidebar.html :: sidebar"></nav>
+	
+	<div class="main-content">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-12 col-lg-10 col-xl-8">
+				
+					<!-- Header of page -->
+					<div class="header mt-md-5">
+						<div class="header-body">
+							<div class="row align-items-center">
+								<div class="col">
+									<!-- Header Pretitle -->
+									<h6 class="header-pretitle">
+										<span th:text="#{pages.profile.header.pretitle}"></span>
+									</h6>
+									<!-- Header Title -->
+									<h1 class="header-title">
+										<span th:text="#{pages.profile.header.title}"></span>
+									</h1>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- Form -->
+					<form class="mb-4" th:action="@{/profile/update}" th:object="${profile}">
+						<!-- Username -->
+						<div class="form-group">
+							<label><span th:text="#{pages.profile.form.field.username}"></span></label>
+							<input type="text" class="form-control" readonly="readonly" th:value="${username}">
+						</div>
+						
+						<!-- Name -->
+						<div class="form-group">
+							<label><span th:text="#{pages.profile.form.field.name}"></span></label>
+							<input type="text" class="form-control" th:field="*{name}">
+						</div>
+						
+						<!-- Last Name -->
+						<div class="form-group">
+							<label><span th:text="#{pages.profile.form.field.lastname}"></span></label>
+							<input type="text" class="form-control" th:field="*{lastname}">
+						</div>
+						
+						<!-- Phone Number -->
+						<div class="form-group">
+							<label><span th:text="#{pages.profile.form.field.phonenumber}"></span></label>
+							<input type="text" class="form-control" th:field="*{phonenumber}" data-mask="(00)00000-0000">
+						</div>
+						
+						
+					</form>
+				
+				</div>
+			</div>		
+		</div>
+	</div>
+	
+	<th:block th:include="fragments/scripts.html"></th:block>
+
+</body>
+</html>

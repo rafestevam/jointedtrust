@@ -7,12 +7,12 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import br.com.intelliapps.jointedtrust.authentication.models.User;
+import br.com.intelliapps.jointedtrust.authentication.models.UserEntity;
 
 public class UserValidator implements Validator {
 	
 	public boolean supports(Class<?> clazz) {
-		return User.class.isAssignableFrom(clazz);
+		return UserEntity.class.isAssignableFrom(clazz);
 	}
 
 	public void validate(Object target, Errors errors) {
@@ -24,7 +24,7 @@ public class UserValidator implements Validator {
 		ValidationUtils.rejectIfEmpty(errors, "password", "valid.user.error.password.empty", new String[] {});
 		ValidationUtils.rejectIfEmpty(errors, "confpass", "valid.user.error.confpass.empty", new String[] {});
 		
-		User user = (User) target;
+		UserEntity user = (UserEntity) target;
 		
 		if(user.getName() != null) {
 			if(user.getName().length() > 500) {

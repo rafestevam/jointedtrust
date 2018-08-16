@@ -1,4 +1,4 @@
-package br.com.intelliapps.jointedtrust.core.dashboard.controllers;
+package br.com.intelliapps.jointedtrust.core.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

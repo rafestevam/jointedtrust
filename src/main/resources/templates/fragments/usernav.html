@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+th:lang="${#locale.language}">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+	<!-- User (md) -->
+    <div class="navbar-user mt-auto d-none d-md-flex" th:fragment="usernav">
+  
+      <!-- Icon -->
+      <a href="#sidebarModalActivity" class="text-muted" data-toggle="modal">
+        <span class="icon">
+          <i class="fe fe-bell"></i>
+        </span>
+      </a>
+
+      <!-- Dropup -->
+      <div class="dropup">
+    
+        <!-- Toggle -->
+        <a href="#!" id="sidebarIconCopy" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="avatar avatar-sm avatar-online">
+            <img src="assets/img/avatars/profiles/avatar-1.jpg" class="avatar-img rounded-circle" alt="...">
+          </div>
+        </a>
+
+        <!-- Menu -->
+        <div class="dropdown-menu" aria-labelledby="sidebarIconCopy">
+          <a th:href="@{/profile}" class="dropdown-item"><span th:text="#{menu.user.profile}"></span></a>
+          <a href="settings.html" class="dropdown-item">Settings</a>
+          <hr class="dropdown-divider">
+          <a href="sign-in.html" class="dropdown-item">Logout</a>
+        </div>
+
+      </div>
+
+      <!-- Icon -->
+      <a href="#sidebarModalSearch" class="text-muted" data-toggle="modal">
+        <span class="icon">
+          <i class="fe fe-search"></i>
+        </span>
+      </a>
+
+    </div>
+
+</body>
+</html>

@@ -19,7 +19,7 @@ public class Role {
 	private String name;
 	
 	@ManyToMany(mappedBy="roles")
-	private Set<User> users;
+	private Set<UserEntity> users;
 	
 	public Role() {}
 	
@@ -45,11 +45,11 @@ public class Role {
 	}
 
 	@ManyToMany(mappedBy="users")
-	public Set<User> getUsers() {
+	public Set<UserEntity> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<User> users) {
+	public void setUsers(Set<UserEntity> users) {
 		this.users = users;
 	}
 	
