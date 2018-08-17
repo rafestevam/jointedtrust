@@ -24,6 +24,8 @@ public class Profile {
 	
 	private String lastname;
 	
+	private String email;
+	
 	private String phonenumber;
 	
 	private Date birthday;
@@ -32,15 +34,18 @@ public class Profile {
 	
 	private String jobposition;
 	
+	private String photoaddress;
+	
 	@OneToOne(fetch=FetchType.LAZY)
 	@MapsId
 	private UserEntity user;
 	
 	public Profile() {}
 	
-	public Profile(String name, String lastname, Date createdate) {
+	public Profile(String name, String lastname, String mail, Date createdate) {
 		this.name = name;
 		this.lastname = lastname;
+		this.email = mail;
 		this.createdate = createdate;
 	}
 
@@ -106,5 +111,21 @@ public class Profile {
 
 	public void setUser(UserEntity user) {
 		this.user = user;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhotoaddress() {
+		return photoaddress;
+	}
+
+	public void setPhotoaddress(String photoaddress) {
+		this.photoaddress = photoaddress;
 	}
 }

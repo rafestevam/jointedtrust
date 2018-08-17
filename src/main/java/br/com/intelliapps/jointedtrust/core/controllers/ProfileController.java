@@ -3,8 +3,11 @@ package br.com.intelliapps.jointedtrust.core.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.intelliapps.jointedtrust.authentication.models.UserEntity;
 import br.com.intelliapps.jointedtrust.authentication.services.LoggedUserService;
@@ -31,6 +34,10 @@ public class ProfileController {
 		
 		return "profile";
 		
+	}
+	
+	public String saveProfile(@RequestParam MultipartFile file, @ModelAttribute("profile") Profile profile, Model model) {
+		return null;
 	}
 	
 }

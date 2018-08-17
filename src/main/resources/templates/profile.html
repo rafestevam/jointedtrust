@@ -31,30 +31,115 @@ th:lang="${#locale.language}">
 					</div>
 					
 					<!-- Form -->
-					<form class="mb-4" th:action="@{/profile/update}" th:object="${profile}">
+					<form class="mb-4" th:action="@{/profile/update}" th:object="${profile}" enctype="multipart/form-data">
+						
 						<!-- Username -->
 						<div class="form-group">
 							<label><span th:text="#{pages.profile.form.field.username}"></span></label>
 							<input type="text" class="form-control" readonly="readonly" th:value="${username}">
 						</div>
 						
-						<!-- Name -->
-						<div class="form-group">
-							<label><span th:text="#{pages.profile.form.field.name}"></span></label>
-							<input type="text" class="form-control" th:field="*{name}">
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<!-- Name -->
+								<div class="form-group">
+									<label><span th:text="#{pages.profile.form.field.name}"></span></label>
+									<input type="text" class="form-control" th:field="*{name}">
+								</div>
+							</div>
+							<div class="col-12 col-md-6">
+								<!-- Last Name -->
+								<div class="form-group">
+									<label><span th:text="#{pages.profile.form.field.lastname}"></span></label>
+									<input type="text" class="form-control" th:field="*{lastname}">
+								</div>
+							</div>
 						</div>
 						
-						<!-- Last Name -->
+						<!-- Username -->
 						<div class="form-group">
-							<label><span th:text="#{pages.profile.form.field.lastname}"></span></label>
-							<input type="text" class="form-control" th:field="*{lastname}">
+							<label><span th:text="#{pages.profile.form.field.email}"></span></label>
+							<input type="text" class="form-control" th:value="*{email}">
+							<small class="form-text text-muted"><span th:text="#{pages.profile.form.field.email.subtitle}"></span></small>
 						</div>
 						
-						<!-- Phone Number -->
-						<div class="form-group">
-							<label><span th:text="#{pages.profile.form.field.phonenumber}"></span></label>
-							<input type="text" class="form-control" th:field="*{phonenumber}" data-mask="(00)00000-0000">
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<!-- Phone Number -->
+								<div class="form-group">
+									<label><span th:text="#{pages.profile.form.field.phonenumber}"></span></label>
+									<input type="text" class="form-control" th:field="*{phonenumber}" data-mask="(00)00000-0000">
+								</div>
+							</div>
+							<div class="col-12 col-md-6">
+								<!-- Birthday -->
+								<div class="form-group">
+									<label><span th:text="#{pages.profile.form.field.birthday}"></span></label>
+									<input type="text" class="form-control flatpickr-input" data-toggle="flatpickr" readonly="readonly" th:field="*{birthday}">
+								</div>
+							</div>
 						</div>
+						
+						<!-- Job Position -->
+						<div class="form-group">
+							<label><span th:text="#{pages.profile.form.field.jobposition}"></span></label>
+							<input type="text" class="form-control" th:field="*{jobposition}">
+						</div>
+						
+						<!-- Divider -->
+						<hr class="mt-4 mb-5">
+						
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<!-- Upload Profile Photo -->
+								<div class="form-group">
+									<label class="mb-1"><span th:text="#{pages.profile.form.field.photo}"></span></label>
+									<small class="form-text text-muted"><span th:text="#{pages.profile.form.field.photo.subtitle}"></span></small>
+									<div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://" style="width: 200px; height: 200px;">
+									  <div class="fallback">
+									    <div class="custom-file">
+									      <input type="file" class="custom-file-input" id="projectCoverUploads" name="file">
+									      <label class="custom-file-label" for="projectCoverUploads">Choose file</label>
+									    </div>
+									  </div>
+									  <div class="dz-preview dz-preview-single">
+									    <div class="dz-preview-cover">
+									      <img class="dz-preview-img" src="..." alt="..." data-dz-thumbnail>
+									    </div>
+									  </div>
+									  <div class="dz-message" style="height: 200px;"><span th:text="#{pages.profile.form.field.photo.message}"></span></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-md-6 order-md-2">
+								<!-- Upload Instructions Card -->
+								<div class="card bg-light border ml-md-4">
+									<div class="card-body">
+										<p class="mb-2"><span th:text="#{pages.profile.upload.instructions.title}"></span></p>
+										<p class="small text-muted mb-2"><span th:text="#{pages.profile.upload.instructions.subtitle}"></span></p>
+										<ul class="small text-muted pl-4 mb-0">
+											<li><span th:text="#{pages.profile.upload.instructions.1}"></span></li>
+											<li><span th:text="#{pages.profile.upload.instructions.2}"></span></li>
+											<li><span th:text="#{pages.profile.upload.instructions.3}"></span></li>
+											<li><span th:text="#{pages.profile.upload.instructions.4}"></span></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Divider -->
+						<hr class="mt-4 mb-5">
+						
+						<!-- Submit Button -->
+						<button type="submit" class="btn btn-block btn-primary">
+							<span th:text="#{pages.profile.form.button.submit}"></span>
+						</button>
+						
+						<!-- Cancel Button -->
+						<a href="#" class="btn btn-block btn-link text-muted">
+							<span th:text="#{pages.profile.form.button.cancel}"></span>
+						</a>
 						
 						
 					</form>
@@ -63,6 +148,7 @@ th:lang="${#locale.language}">
 			</div>		
 		</div>
 	</div>
+	
 	
 	<th:block th:include="fragments/scripts.html"></th:block>
 

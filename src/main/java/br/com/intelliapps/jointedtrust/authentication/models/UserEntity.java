@@ -131,7 +131,7 @@ public class UserEntity {
 	
 	public void createProfile() {
 		Calendar calendar = Calendar.getInstance();
-		this.profile = new Profile(this.name, this.lastname, calendar.getTime());
+		this.profile = new Profile(this.name, this.lastname, this.mail, calendar.getTime());
 		this.profile.setUser(this);
 	}
 	
