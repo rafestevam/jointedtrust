@@ -31,7 +31,7 @@ th:lang="${#locale.language}">
 					</div>
 					
 					<!-- Form -->
-					<form class="mb-4" th:action="@{/profile/update}" th:object="${profile}" enctype="multipart/form-data">
+					<form class="dropzone mb-4" th:action="@{/profile/update}" th:object="${profile}" enctype="multipart/form-data" method="POST" id="dropzone-form">
 						
 						<!-- Username -->
 						<div class="form-group">
@@ -92,22 +92,35 @@ th:lang="${#locale.language}">
 						<div class="row">
 							<div class="col-12 col-md-6">
 								<!-- Upload Profile Photo -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<div class="dropzoneUpload"></div> -->
+<!-- 								</div> -->
+<!-- 									<div class="form-group"> -->
+<!-- 										<label class="mb-1"><span th:text="#{pages.profile.form.field.photo}"></span></label> -->
+<!-- 										<small class="form-text text-muted"><span th:text="#{pages.profile.form.field.photo.subtitle}"></span></small> -->
+<!-- 										<div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="http://"> -->
+<!-- 											<div class="dz-preview dz-preview-single"> -->
+<!-- 												<img class="dz-preview-img" data-dz-thumbnail> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+									
 								<div class="form-group">
 									<label class="mb-1"><span th:text="#{pages.profile.form.field.photo}"></span></label>
 									<small class="form-text text-muted"><span th:text="#{pages.profile.form.field.photo.subtitle}"></span></small>
-									<div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://" style="width: 200px; height: 200px;">
-									  <div class="fallback">
-									    <div class="custom-file">
-									      <input type="file" class="custom-file-input" id="projectCoverUploads" name="file">
-									      <label class="custom-file-label" for="projectCoverUploads">Choose file</label>
-									    </div>
-									  </div>
-									  <div class="dz-preview dz-preview-single">
-									    <div class="dz-preview-cover">
-									      <img class="dz-preview-img" src="..." alt="..." data-dz-thumbnail>
-									    </div>
-									  </div>
-									  <div class="dz-message" style="height: 200px;"><span th:text="#{pages.profile.form.field.photo.message}"></span></div>
+									<div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="http://">
+										<div class="fallback">
+											<div class="custom-file">
+												<input type="file" class="custom-file-input" id="file">
+												<label class="custom-file-label" for="file">Choose file</label>
+											</div>
+										</div>
+										
+										<div class="dz-preview dz-preview-single">
+											<div class="dz-preview-cover">
+												<img class="dz-preview-img" data-dz-thumbnail>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -132,7 +145,7 @@ th:lang="${#locale.language}">
 						<hr class="mt-4 mb-5">
 						
 						<!-- Submit Button -->
-						<button type="submit" class="btn btn-block btn-primary">
+						<button type="submit" class="btn btn-block btn-primary" id="submit">
 							<span th:text="#{pages.profile.form.button.submit}"></span>
 						</button>
 						
@@ -151,6 +164,48 @@ th:lang="${#locale.language}">
 	
 	
 	<th:block th:include="fragments/scripts.html"></th:block>
+	
+	<script>
+		/*
+		$(document).ready(function(){
+			
+			$(".file-dropzone").on('dragover', handleDragEnter);
+			$(".file-dropzone").on('dragleave', handleDragLeave);
+			$(".file-dropzone").on('drop', handleDragLeave);
+			
+			function handleDragEnter(e) {
+			
+			       this.classList.add('drag-over');
+			}
+			
+			function handleDragLeave(e) {
+			
+			       this.classList.remove('drag-over');
+			}
+			
+			$("#dropzoneUpload").dropzone({ url: "/profile/upload" });
+			
+			Dropzone.options.dropzoneForm = {
+				paramName: "file",
+				autoProcessQueue: false,
+				maxFilesize: 2,
+				addRemoveLinks: true,
+				uploadMultiple: false,
+				//previewsContainer: ".dz-preview"
+				
+				init: function(){
+					var myDropzone = this;
+					this.element.querySelector("button[type=submit]").addEventListener("click", function(e){
+						e.preventDefault();
+						e.stopPropagation();
+						myDropzone.processQueue();
+					});
+				}
+				
+			}
+		});
+		*/
+	</script>
 
 </body>
 </html>

@@ -10,9 +10,11 @@ import br.com.intelliapps.jointedtrust.authentication.repositories.UserEntityRep
 import br.com.intelliapps.jointedtrust.authentication.services.UserService;
 import br.com.intelliapps.jointedtrust.core.controllers.DashboardController;
 import br.com.intelliapps.jointedtrust.core.controllers.ProfileController;
+import br.com.intelliapps.jointedtrust.core.converters.StringToDateConverter;
 import br.com.intelliapps.jointedtrust.core.models.Profile;
 import br.com.intelliapps.jointedtrust.core.repositories.ProfileRepository;
 import br.com.intelliapps.jointedtrust.core.services.ProfileService;
+import br.com.intelliapps.jointedtrust.main.components.FileSaverComponent;
 import br.com.intelliapps.jointedtrust.main.configs.WebConfig;
 import br.com.intelliapps.jointedtrust.main.controllers.HomeController;
 
@@ -33,12 +35,17 @@ ProfileRepository.class,
 UserService.class,
 ProfileService.class,
 
+//Components
+FileSaverComponent.class,
+
+//Converters
+StringToDateConverter.class,
+
 //Controllers
 HomeController.class,
 LoginController.class,
 DashboardController.class,
 ProfileController.class
-
 })
 public class BasicConfiguration {
 
