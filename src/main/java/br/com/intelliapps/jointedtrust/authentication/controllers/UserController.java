@@ -74,7 +74,7 @@ public class UserController {
 			userentity.setGuid(this.getGuid());
 			userentity.setLocked(true);
 			userentity.setActivated(false);
-			userentity.createProfile();
+			userentity.createProfile(this.getGuid());
 			userService.save(userentity);
 
 			sendUserConfirmationMail(userentity, req);

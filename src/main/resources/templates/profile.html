@@ -31,12 +31,14 @@ th:lang="${#locale.language}">
 					</div>
 					
 					<!-- Form -->
-					<form class="dropzone mb-4" th:action="@{/profile/update}" th:object="${profile}" enctype="multipart/form-data" method="POST" id="dropzone-form">
+					<form class="mb-4" th:action="@{/profile/update}" th:object="${profile}" enctype="multipart/form-data" method="POST" id="profileForm">
 						
 						<!-- Username -->
 						<div class="form-group">
 							<label><span th:text="#{pages.profile.form.field.username}"></span></label>
 							<input type="text" class="form-control" readonly="readonly" th:value="${username}">
+							<input type="hidden" th:attr="name='username'" th:value="${username}">
+							<input type="hidden" th:attr="name='guid'" th:value="${profile.guid}">
 						</div>
 						
 						<div class="row">
@@ -89,57 +91,66 @@ th:lang="${#locale.language}">
 						<!-- Divider -->
 						<hr class="mt-4 mb-5">
 						
-						<div class="row">
-							<div class="col-12 col-md-6">
+						<div class="card bg-light border ml-md-4">
+							<div class="card-body">
+								<p class="mb-2"><span th:text="#{pages.profile.upload.instructions.title}"></span></p>
+								<p class="small text-muted mb-2"><span th:text="#{pages.profile.upload.instructions.subtitle}"></span></p>
+								<ul class="small text-muted pl-4 mb-0">
+									<li><span th:text="#{pages.profile.upload.instructions.1}"></span></li>
+									<li><span th:text="#{pages.profile.upload.instructions.2}"></span></li>
+									<li><span th:text="#{pages.profile.upload.instructions.3}"></span></li>
+									<li><span th:text="#{pages.profile.upload.instructions.4}"></span></li>
+								</ul>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="mb-1"><span th:text="#{pages.profile.form.field.photo}"></span></label>
+							<small class="form-text text-muted"><span th:text="#{pages.profile.form.field.photo.subtitle}"></span></small>
+							<div class="custom-file">
+								<input type="file" class="form-control" name="file">
+							</div>
+						</div>
+						
+<!-- 						<div class="row"> -->
+<!-- 							<div class="col-12 col-md-6"> -->
 								<!-- Upload Profile Photo -->
+									<!-- Unsuccessful attempt to use Dropzone -->
 <!-- 								<div class="form-group"> -->
-<!-- 									<div class="dropzoneUpload"></div> -->
-<!-- 								</div> -->
-<!-- 									<div class="form-group"> -->
-<!-- 										<label class="mb-1"><span th:text="#{pages.profile.form.field.photo}"></span></label> -->
-<!-- 										<small class="form-text text-muted"><span th:text="#{pages.profile.form.field.photo.subtitle}"></span></small> -->
-<!-- 										<div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="http://"> -->
-<!-- 											<div class="dz-preview dz-preview-single"> -->
+<!-- 									<label class="mb-1"><span th:text="#{pages.profile.form.field.photo}"></span></label> -->
+<!-- 									<small class="form-text text-muted"><span th:text="#{pages.profile.form.field.photo.subtitle}"></span></small> -->
+<!-- 									<div class="dropzone dropzone-single mb-3" data-toggle="dropzone"> -->
+<!-- 										<div class="fallback"> -->
+<!-- 											<div class="custom-file"> -->
+<!-- 												<input type="file" class="custom-file-input" th:field="*{photoaddress}"> -->
+<!-- 												<label class="custom-file-label" for="file">Choose file</label> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+										
+<!-- 										<div class="dz-preview dz-preview-single"> -->
+<!-- 											<div class="dz-preview-cover"> -->
 <!-- 												<img class="dz-preview-img" data-dz-thumbnail> -->
 <!-- 											</div> -->
 <!-- 										</div> -->
 <!-- 									</div> -->
-									
-								<div class="form-group">
-									<label class="mb-1"><span th:text="#{pages.profile.form.field.photo}"></span></label>
-									<small class="form-text text-muted"><span th:text="#{pages.profile.form.field.photo.subtitle}"></span></small>
-									<div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="http://">
-										<div class="fallback">
-											<div class="custom-file">
-												<input type="file" class="custom-file-input" id="file">
-												<label class="custom-file-label" for="file">Choose file</label>
-											</div>
-										</div>
-										
-										<div class="dz-preview dz-preview-single">
-											<div class="dz-preview-cover">
-												<img class="dz-preview-img" data-dz-thumbnail>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 col-md-6 order-md-2">
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							<div class="col-12 col-md-6 order-md-2"> -->
 								<!-- Upload Instructions Card -->
-								<div class="card bg-light border ml-md-4">
-									<div class="card-body">
-										<p class="mb-2"><span th:text="#{pages.profile.upload.instructions.title}"></span></p>
-										<p class="small text-muted mb-2"><span th:text="#{pages.profile.upload.instructions.subtitle}"></span></p>
-										<ul class="small text-muted pl-4 mb-0">
-											<li><span th:text="#{pages.profile.upload.instructions.1}"></span></li>
-											<li><span th:text="#{pages.profile.upload.instructions.2}"></span></li>
-											<li><span th:text="#{pages.profile.upload.instructions.3}"></span></li>
-											<li><span th:text="#{pages.profile.upload.instructions.4}"></span></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
+<!-- 								<div class="card bg-light border ml-md-4"> -->
+<!-- 									<div class="card-body"> -->
+<!-- 										<p class="mb-2"><span th:text="#{pages.profile.upload.instructions.title}"></span></p> -->
+<!-- 										<p class="small text-muted mb-2"><span th:text="#{pages.profile.upload.instructions.subtitle}"></span></p> -->
+<!-- 										<ul class="small text-muted pl-4 mb-0"> -->
+<!-- 											<li><span th:text="#{pages.profile.upload.instructions.1}"></span></li> -->
+<!-- 											<li><span th:text="#{pages.profile.upload.instructions.2}"></span></li> -->
+<!-- 											<li><span th:text="#{pages.profile.upload.instructions.3}"></span></li> -->
+<!-- 											<li><span th:text="#{pages.profile.upload.instructions.4}"></span></li> -->
+<!-- 										</ul> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 						
 						<!-- Divider -->
 						<hr class="mt-4 mb-5">
@@ -167,6 +178,24 @@ th:lang="${#locale.language}">
 	
 	<script>
 		/*
+		Dropzone.options.profileForm = {
+			paramName: "photoaddress",
+			//autoProcessQueue: false,
+			uploadMultiple: false,
+			maxFilesize: 2
+			
+		}
+	
+		
+		$("div#photoDropzone").dropzone({ url: "/profile/update" });
+	
+		Dropzone.options.profileForm = {
+			paramName: "file",
+			autoProcessQueue: false,
+			uploadMultiple: false,
+			maxFilesize: 2
+		}
+		
 		$(document).ready(function(){
 			
 			$(".file-dropzone").on('dragover', handleDragEnter);

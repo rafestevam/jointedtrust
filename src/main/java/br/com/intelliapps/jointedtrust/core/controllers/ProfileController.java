@@ -6,7 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.intelliapps.jointedtrust.authentication.models.UserEntity;
 import br.com.intelliapps.jointedtrust.authentication.services.LoggedUserService;
@@ -27,6 +28,9 @@ public class ProfileController {
 	@Autowired
 	private FileSaverComponent fileSaver;
 	
+//	@Autowired
+//	private UserService userService;
+	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String profileForm(Model model) {
 		
@@ -40,12 +44,28 @@ public class ProfileController {
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String saveProfile(@ModelAttribute("profile") Profile profile, Model model, MultipartHttpServletRequest req) {
+	public String saveProfile(@RequestParam MultipartFile file, @ModelAttribute("profile") Profile formProfile, Model model, @ModelAttribute("username") String username) {
 		
-		//String fileAddr = fileSaver.write("profile_files", file, profile.getGuid());
-		String fileAddr = "teste";
+		String fileAddr = fileSaver.write("profile_files", file, username);
 		
-		profile.setPhotoaddress(fileAddr);
+		//UserEntity user = userService.findByUsername(username);
+		Profile profile = profileService.findByGuid(formProfile.getGuid());
+		
+		if(formProfile.getName() != null)
+			profile.setName(formProfile.getName());
+		
+		if(formProfile.getLastname() != null)
+			profile.setLastname(formProfile.getLastname());
+		
+		if(formProfile.getPhonenumber() != null)
+			profile.setPhonenumber(formProfile.getPhonenumber());
+		
+		if(formProfile.getBirthday() != null)
+			profile.setBirthday(formProfile.getBirthday());
+		
+		if(fileAddr.isEmpty())
+			profile.setPhotoaddress(fileAddr);
+		
 		profileService.save(profile);
 		
 		return "redirect:/dashboard";

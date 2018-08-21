@@ -129,9 +129,10 @@ public class UserEntity {
 		this.activated = activated;
 	}
 	
-	public void createProfile() {
+	public void createProfile(String guid) {
 		Calendar calendar = Calendar.getInstance();
 		this.profile = new Profile(this.name, this.lastname, this.mail, calendar.getTime());
+		this.profile.setGuid(guid);
 		this.profile.setUser(this);
 	}
 	
