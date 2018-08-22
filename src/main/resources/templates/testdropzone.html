@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+th:lang="${#locale.language}">
+<head th:insert="fragments/head.html :: head('JointedTrust')"></head>
+<body th:fragment="basicLayout">
+
+	<nav th:replace="fragments/sidebar.html :: sidebar"></nav>
+	
+	<div class="main-content">
+		
+		<form class="mb-4" enctype="multipart/form-data" action="testdr" id="dropzoneForm" method="POST">
+			<div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="/testdr">
+				<div class="fallback">
+				    <div class="custom-file">
+				      <input type="file" class="custom-file-input" id="projectCoverUploads">
+				      <label class="custom-file-label" for="projectCoverUploads">Choose file</label>
+				    </div>
+				  </div>
+				
+				  <div class="dz-preview dz-preview-single">
+				    <div class="dz-preview-cover">
+				      <img class="dz-preview-img" data-dz-thumbnail>
+				    </div>
+				  </div>
+			</div>
+			<button type="submit">Enviar arquivo</button>
+		</form>
+		
+	</div>
+	
+	<th:block th:include="fragments/scripts.html"></th:block>
+	
+	<script type="text/javascript">
+	
+	
+		
+	
+	</script>
+	
+</body>
+</html>

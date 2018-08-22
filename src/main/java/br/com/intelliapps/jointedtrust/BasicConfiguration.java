@@ -17,6 +17,7 @@ import br.com.intelliapps.jointedtrust.core.services.ProfileService;
 import br.com.intelliapps.jointedtrust.main.components.FileSaverComponent;
 import br.com.intelliapps.jointedtrust.main.configs.WebConfig;
 import br.com.intelliapps.jointedtrust.main.controllers.HomeController;
+import br.com.intelliapps.jointedtrust.test.controllers.DropzoneTestController;
 
 @SpringBootApplication(scanBasePackageClasses={
 //Configurations
@@ -45,7 +46,8 @@ StringToDateConverter.class,
 HomeController.class,
 LoginController.class,
 DashboardController.class,
-ProfileController.class
+ProfileController.class,
+DropzoneTestController.class
 })
 public class BasicConfiguration {
 
