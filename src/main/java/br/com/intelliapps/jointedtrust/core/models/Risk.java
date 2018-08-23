@@ -1,8 +1,11 @@
 package br.com.intelliapps.jointedtrust.core.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
@@ -15,6 +18,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import br.com.intelliapps.jointedtrust.main.components.File;
+
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name="apl_risk_tbl")
@@ -26,14 +31,17 @@ public class Risk {
 	
 	private String risk_id;
 	
-	@Lob
 	private String name;
 	
+	@Lob
 	private String description;
 	
 	private String cause;
 	
 	private String consequence;
+	
+	@ElementCollection
+	private List<File> files = new ArrayList<File>();
 	
 	@CreatedDate
 	private Date createDate;
@@ -125,6 +133,14 @@ public class Risk {
 
 	public void setLastModifiedBy(String lastModifiedBy) {
 		this.lastModifiedBy = lastModifiedBy;
+	}
+
+	public List<File> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<File> files) {
+		this.files = files;
 	}
 	
 }

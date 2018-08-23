@@ -17,7 +17,7 @@ th:lang="${#locale.language}">
 
         <!-- Brand -->
         <a class="navbar-brand" href="index.html">
-          <img src="assets/img/logo.svg" class="navbar-brand-img 
+          <img th:src="@{/assets/img/logo.svg}" class="navbar-brand-img 
           mx-auto" alt="...">
         </a>
 
@@ -69,25 +69,30 @@ th:lang="${#locale.language}">
               </a>
             </li>
             
+            <!-- Explorer Menu -->
             <li class="nav-item">
             	<a class="nav-link" href="#sidebarExplorer" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarExplorer">
             		<i class="fe fe-package"></i> <span th:text="#{menu.principal.explorer}"></span>
             	</a>
             	<div class="collapse" id="sidebarExplorer">
             		<ul class="nav nav-sm flex-column">
+            			
+            			<!-- Risk Sub Menu -->
             			<li class="nav-item">
             				<a href="#sidebarRisk" class="nav-link" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarRisk">
             					<span th:text="#{menu.explorer.submenu.risk}"></span>
             				</a>
             				<div class="collapse" id="sidebarRisk">
             					<ul class="nav nav-sm flex-column">
+            						<!-- Risk View Item -->
             						<li class="nav-item">
 	            						<a th:href="@{/risk}" class="nav-link">
 	            							<span th:text="#{submenu.risk.item.riskview}"></span>
 	            						</a>
             						</li>
+            						<!-- Create New Risk Item -->
             						<li class="nav-item">
-	            						<a href="" class="nav-link">
+	            						<a th:href="@{/risk/create}" class="nav-link">
 	            							<span th:text="#{submenu.risk.item.newrisk}"></span>
 	            						</a>
             						</li>

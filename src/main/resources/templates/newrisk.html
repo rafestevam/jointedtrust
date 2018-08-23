@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+th:lang="${#locale.language}">
+<head th:insert="fragments/head.html :: head('JointedTrust')"></head>
+<body th:fragment="basicLayout">
+
+	<nav th:replace="fragments/sidebar.html :: sidebar"></nav>
+	
+	<div class="main-content">
+	
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-12 col-lg-10 col-xl-8">
+					
+					<!-- Header -->
+					<div class="header mt-md-5">
+						<div class="header-body">
+							<div class="row align-items-center">
+								<div class="col">
+									<!-- Pretitle -->
+									<h6 class="header-pretitle">
+										<span th:text="#{pages.risk.header.pretitle}"></span>
+									</h6>
+									<!-- Title -->
+									<h1 class="header-title">
+										<span th:text="#{pages.risk.header.title}"></span>
+									</h1>
+								</div>
+							</div>						
+						</div>
+					</div>
+					
+					<!-- Form -->
+					<form class="mb-4">
+						
+						<!-- Risk ID -->
+						<div class="form-group">
+							<label><span th:text="#{pages.risk.form.field.id}"></span></label>
+							<input type="text" class="form-control">
+						</div>
+
+						<!-- Risk Name -->
+						<div class="form-group">
+							<label><span th:text="#{pages.risk.form.field.name}"></span></label>
+							<input type="text" class="form-control">
+						</div>
+						
+						<!-- Risk Description -->
+						<div class="form-group">
+							<label><span th:text="#{pages.risk.form.field.description}"></span></label>
+							<div data-toggle="quill" th:attr="data-quill-placeholder=#{pages.risk.form.field.description.ph}"></div>
+						</div>
+						
+						<!-- Risk Cause -->
+						<div class="form-group">
+							<label><span th:text="#{pages.risk.form.field.cause}"></span></label>
+							<div data-toggle="quill" th:attr="data-quill-placeholder=#{pages.risk.form.field.cause.ph}"></div>
+						</div>
+						
+						<!-- Risk Consequence -->
+						<div class="form-group">
+							<label><span th:text="#{pages.risk.form.field.consequence}"></span></label>
+							<div data-toggle="quill" th:attr="data-quill-placeholder=#{pages.risk.form.field.consequence.ph}"></div>
+						</div>
+					
+					</form>
+				
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	<th:block th:include="fragments/scripts.html"></th:block>
+
+</body>
+</html>
