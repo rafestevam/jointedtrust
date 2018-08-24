@@ -20,4 +20,8 @@ public class RiskServiceImpl implements RiskService{
 		return riskRepository.findByGuid(guid);
 	}
 
+	public boolean existsByRiskId(String riskId) {
+		return riskRepository.existsByRiskId(riskId);
+	}
+
 }

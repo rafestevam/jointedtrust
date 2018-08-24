@@ -36,8 +36,10 @@ public class Risk {
 	@Lob
 	private String description;
 	
+	@Lob
 	private String cause;
 	
+	@Lob
 	private String consequence;
 	
 	@ElementCollection

@@ -16,6 +16,7 @@ th:lang="${#locale.language}">
 					<!-- Header -->
 					<div class="header mt-md-5">
 						<div class="header-body">
+							<!-- Header Container -->
 							<div class="row align-items-center">
 								<div class="col">
 									<!-- Pretitle -->
@@ -27,42 +28,85 @@ th:lang="${#locale.language}">
 										<span th:text="#{pages.risk.header.title}"></span>
 									</h1>
 								</div>
-							</div>						
+							</div>	
+							<!-- Submenu Container -->
+							<div class="row align-items-center">
+								<div class="col">
+									<!-- Sub Menu -->
+									<ul class="nav nav-tabs nav-overflow header-tabs">
+										<!-- Basic Data -->
+										<li class="nav-item">
+											<a href="#formBasic" class="nav-link active" data-toggle="collapse" aria-expanded="false" aria-controls="formBasic" role="button" id="aFormBasic">
+												<span th:text="#{pages.risk.submenu.item.basics}"></span>
+											</a>
+										</li>
+										<!-- Custom Data -->
+										<li class="nav-item">
+											<a href="#formCustom" class="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="formCustom" role="button" id="aFormCustom">
+												<span th:text="#{pages.risk.submenu.item.custom}"></span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>				
 						</div>
 					</div>
 					
 					<!-- Form -->
-					<form class="mb-4">
+					<form class="mb-4" th:object="${risk}" th:action="@{/risk/create}" method="POST" id="riskForm">
 						
-						<!-- Risk ID -->
-						<div class="form-group">
-							<label><span th:text="#{pages.risk.form.field.id}"></span></label>
-							<input type="text" class="form-control">
-						</div>
-
-						<!-- Risk Name -->
-						<div class="form-group">
-							<label><span th:text="#{pages.risk.form.field.name}"></span></label>
-							<input type="text" class="form-control">
+						<!-- Basic Data Container -->
+						<div id="formBasic" class="collapse multi-collapse">
+							<!-- Risk ID -->
+							<div class="form-group">
+								<label><span th:text="#{pages.risk.form.field.id}"></span></label>
+								<input type="text" class="form-control" th:field="*{risk_id}">
+							</div>
+	
+							<!-- Risk Name -->
+							<div class="form-group">
+								<label><span th:text="#{pages.risk.form.field.name}"></span></label>
+								<input type="text" class="form-control" th:field="*{name}">
+							</div>
+							
+							<!-- Risk Description -->
+							<div class="form-group">
+								<label><span th:text="#{pages.risk.form.field.description}"></span></label>
+								<div data-toggle="quill" th:attr="data-quill-placeholder=#{pages.risk.form.field.description.ph}" id="quillDescription"></div>
+								<textarea th:field="*{description}" style="display:none"></textarea>
+							</div>
+							
+							<!-- Risk Cause -->
+							<div class="form-group">
+								<label><span th:text="#{pages.risk.form.field.cause}"></span></label>
+								<div data-toggle="quill" th:attr="data-quill-placeholder=#{pages.risk.form.field.cause.ph}" id="quillCause"></div>
+								<textarea th:field="*{cause}" style="display:none"></textarea>
+							</div>
+							
+							<!-- Risk Consequence -->
+							<div class="form-group">
+								<label><span th:text="#{pages.risk.form.field.consequence}"></span></label>
+								<div data-toggle="quill" th:attr="data-quill-placeholder=#{pages.risk.form.field.consequence.ph}" id="quillConsequence"></div>
+								<textarea th:field="*{consequence}" style="display:none"></textarea>
+							</div>
 						</div>
 						
-						<!-- Risk Description -->
-						<div class="form-group">
-							<label><span th:text="#{pages.risk.form.field.description}"></span></label>
-							<div data-toggle="quill" th:attr="data-quill-placeholder=#{pages.risk.form.field.description.ph}"></div>
+						<!-- Custom Data Container -->
+						<div id="formCustom" class="collapse multi-collapse">
+							<h1>CUSTOM FIELDS CONTAINER</h1>
 						</div>
 						
-						<!-- Risk Cause -->
-						<div class="form-group">
-							<label><span th:text="#{pages.risk.form.field.cause}"></span></label>
-							<div data-toggle="quill" th:attr="data-quill-placeholder=#{pages.risk.form.field.cause.ph}"></div>
-						</div>
+						<!-- Divider -->
+						<hr class="mt-5 mb-5">
 						
-						<!-- Risk Consequence -->
-						<div class="form-group">
-							<label><span th:text="#{pages.risk.form.field.consequence}"></span></label>
-							<div data-toggle="quill" th:attr="data-quill-placeholder=#{pages.risk.form.field.consequence.ph}"></div>
-						</div>
+						<!-- Submit Button -->
+						<button type="submit" class="btn btn-block btn-primary">
+							<span th:text="#{pages.risk.form.button.submit}"></span>
+						</button>
+						<!-- Cancel Button -->
+						<a href="#" onClick="window.history.go(-1)" class="btn btn-block btn-link text-muted">
+							<span th:text="#{pages.risk.form.button.cancel}"></span>
+						</a>
 					
 					</form>
 				
@@ -74,6 +118,8 @@ th:lang="${#locale.language}">
 	</div>
 	
 	<th:block th:include="fragments/scripts.html"></th:block>
+	
+	<script th:src="@{/assets/js/riskForm.js}" type="text/javascript"></script>
 
 </body>
 </html>

@@ -7,5 +7,7 @@ public interface RiskService {
 	public void save(Risk risk);
 	
 	public Risk findByGuid(String guid);
+	
+	public boolean existsByRiskId(String riskId);
 
 }

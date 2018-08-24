@@ -9,7 +9,33 @@ th:lang="${#locale.language}">
 	
 	<div class="main-content">
 	
+		<div class="alert alert-success" role="alert" th:if="${successMessage}">
+			<span th:text="${successMessage}"></span>
+		</div>
 		
+		<!-- Header with image -->
+		<div class="header">
+			<img th:src="@{/assets/img/covers/profile-cover-1.jpg}" class="header-img-top">
+			<div class="container-fluid">
+				<!-- Header Body-->
+				<div class="header-body mt--5 mt-md--6">
+					<div class="row align-items-end">
+						<div class="col-auto">
+							<!-- Avatar -->
+							<div class="avatar avatar-xxl header-avatar-top">
+								<img th:src="@{/assets/img/avatars/risks/risk-icon.jpg}" class="avatar-img rounded border border-body" style="background-color: white;">
+							</div>
+						</div>
+						<div class="col mb-3 ml--3 ml-md--2">
+							<!-- Pretitle -->
+							<h6 class="header-pretitle"><span th:text="#{pages.risk.overview.header.pretitle}"></span></h6>
+							<!-- Title -->
+							<h1 class="header-title"><span th:text="#{pages.risk.overview.header.title}"></span></h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		
 	</div>
