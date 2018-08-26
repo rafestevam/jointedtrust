@@ -13,7 +13,7 @@ th:lang="${#locale.language}">
 			<span th:text="${successMessage}"></span>
 		</div>
 		
-		<!-- Header with image -->
+		<!-- Header -->
 		<div class="header">
 			<img th:src="@{/assets/img/covers/profile-cover-1.jpg}" class="header-img-top">
 			<div class="container-fluid">
@@ -32,6 +32,26 @@ th:lang="${#locale.language}">
 							<!-- Title -->
 							<h1 class="header-title"><span th:text="#{pages.risk.overview.header.title}"></span></h1>
 						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Content -->
+		<div data-toggle="lists" data-lists-values="['name']">
+			<div class="container-fluid" data-toggle="lists" data-lists-class="listAlias" data-lists-values="['name']">
+				<div class="row mb-4">
+					<div class="col">
+						<form>
+							<div class="input-group input-group-lg input-group-merge">
+								<input type="text" class="form-control form-control-prepended search" placeholder="Buscar">
+								<div class="input-group-prepend">
+									<div class="input-group-text">
+										<span class="fe fe-search"></span>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
