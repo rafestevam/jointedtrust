@@ -53,6 +53,72 @@ th:lang="${#locale.language}">
 							</div>
 						</form>
 					</div>
+					<div class="col-auto">
+						<div class="nav btn-group">
+							<button class="btn btn-lg btn-white active show" data-toggle="tab" data-target="#tabPaneOne" role="tab" aria-controls="tabPaneOne" aria-selected="true">
+								<span class="fe fe-grid"></span>
+							</button>
+							<button class="btn btn-lg btn-white" data-toggle="tab" data-target="#tabPaneTwo" role="tab" aria-controls="tabPaneTwo" aria-selected="false">
+								<span class="fe fe-list"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div class="tab-pane fade active show" id="tabPaneOne" role="tabpanel">
+						<div class="row listAlias">
+							<div class="col-12 col-md-6 col-xl-4" th:each="risk : ${risks}">
+								<div class="card">
+									<a href="#">
+										<img th:src="@{/assets/img/avatars/projects/project-1.jpg}" class="card-img-top">
+									</a>
+									<div class="card-body">
+										<!-- Basic Info Row -->
+										<div class="row align-items-center">
+											<div class="col">
+												<!-- Card Title -->
+												<h4 class="card-title mb-2 name">
+													<a href="#"><span th:text="${risk.name}"></span></a>	
+												</h4>
+												<!-- Card Subtitle -->
+												<p class="card-text small text-muted">Atualizado ha 4hs</p>
+											</div>
+											<div class="col-auto">
+												<!-- Dropdown Actions Menu -->
+												<div class="dropdown">
+													<a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+														<i class="fe fe-more-vertical"></i>
+													</a>
+													<div class="dropdown-menu dropdown-menu-right">
+														<a href="#!" class="dropdown-item">Uma Ação</a>
+														<a href="#!" class="dropdown-item">Outra Ação</a>
+														<a href="#!" class="dropdown-item">Extras</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Divider -->
+										<hr>
+										<!-- Progress Row -->
+										<div class="row align-items-center">
+											<div class="col">
+												<div class="row align-items-center no-gutters">
+													<div class="col-auto">
+														<div class="small mr-2">29%</div>
+													</div>
+													<div class="col">
+														<div class="progress progress-sm">
+															<div class="progress-bar" role="progressbar" style="width: 29%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

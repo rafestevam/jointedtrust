@@ -1,5 +1,6 @@
 package br.com.intelliapps.jointedtrust.core.controllers;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -7,7 +8,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -39,7 +42,9 @@ public class RiskController {
 	}
 
 	@RequestMapping("")
-	public String riskOverview() {
+	public String riskOverview(Model model) {
+		List<Risk> risks = riskService.findTopRisks(PageRequest.of(0, 9));
+		model.addAttribute("risks", risks);
 		return "risk";
 	}
 	
