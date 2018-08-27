@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.intelliapps.jointedtrust.core.models.Risk;
@@ -42,10 +44,10 @@ public class RiskController {
 	}
 
 	@RequestMapping("")
-	public String riskOverview(Model model) {
+	public String riskList(Model model) {
 		List<Risk> risks = riskService.findTopRisks(PageRequest.of(0, 9));
 		model.addAttribute("risks", risks);
-		return "risk";
+		return "risks";
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.GET)
@@ -54,7 +56,7 @@ public class RiskController {
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public String createRisk(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr) {
+	public String createRisk(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr, @RequestParam MultipartFile[] files) {
 		
 		if(binding.hasErrors())
 			return this.riskForm(risk);
@@ -65,7 +67,7 @@ public class RiskController {
 		}
 		
 		risk.setGuid(this.getGuid());
-		riskService.save(risk);
+		//riskService.save(risk);
 		String successMessage = messageSource.getMessage("notification.risk.create.success", new String[] { risk.getName() }, locale);
 		rAttr.addFlashAttribute("successMessage", successMessage);
 			
