@@ -2339,16 +2339,6 @@ pre code
     background-color: #fff;
     box-shadow: transparent;
 }
-.form-control::-webkit-input-placeholder,
-.ql-editor::-webkit-input-placeholder,
-.ql-tooltip input::-webkit-input-placeholder,
-.select2-container .select2-selection--single::-webkit-input-placeholder,
-.select2-container--default.select2-container--focus .select2-selection--multiple::-webkit-input-placeholder,
-.select2-container--default .select2-selection--multiple::-webkit-input-placeholder
-{
-    opacity: 1; 
-    color: #b1c2d9;
-}
 .form-control:-ms-input-placeholder,
 .ql-editor:-ms-input-placeholder,
 .ql-tooltip input:-ms-input-placeholder,
@@ -6999,7 +6989,7 @@ input[type='button'].btn-block
 
 .progress
 {
-    font-size: .70312rem;
+    font-size: .70313rem;
 
     display: flex;
     overflow: hidden;

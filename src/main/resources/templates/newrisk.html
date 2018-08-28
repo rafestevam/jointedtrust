@@ -59,7 +59,7 @@ th:lang="${#locale.language}">
 					</div>
 					
 					<!-- Form -->
-					<form class="mb-4" th:object="${risk}" th:action="@{/risk/create}" method="POST" id="riskForm" enctype="multipart/form-data">
+					<form class="mb-4" th:object="${risk}" th:action="@{/risk/create}" method="POST" id="dzForm" enctype="multipart/form-data">
 						
 						<!-- Basic Data Container -->
 						<div id="formBasic" class="collapse multi-collapse">
@@ -145,7 +145,7 @@ th:lang="${#locale.language}">
 						<hr class="mt-5 mb-5">
 						
 						<!-- Submit Button -->
-						<button type="submit" class="btn btn-block btn-primary">
+						<button type="submit" class="btn btn-block btn-primary" id="dzSubmit">
 							<span th:text="#{pages.risk.form.button.submit}"></span>
 						</button>
 						<!-- Cancel Button -->

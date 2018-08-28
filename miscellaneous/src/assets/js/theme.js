@@ -1254,6 +1254,7 @@ var Dropzones = (function() {
 
     // Init options
     var options = {
+      autoProcessQueue: false,
       url: $this.data('dropzone-url'),
       thumbnailWidth: null,
       thumbnailHeight: null,
@@ -1267,7 +1268,21 @@ var Dropzones = (function() {
             this.removeFile(currentFile);
           }
           currentFile = file;
+
+          //Append File in a Hidden Field (Extended)
+          var uploadFile = file.name;
+          $("#dzForm").append('<input type="hidden" name="file" id="file' + myDropzone.files.length + '" value="' + uploadFile + '" />');
         })
+
+        //Submit Form (Extended)
+        var myDropzone = this;
+        var submitBtn = document.querySelector("#dzSubmit");
+
+        submitBtn.addEventListener("click", function(){
+          myDropzone.processQueue();
+          document.expenses.submit();
+        });
+
       }
     }
 
