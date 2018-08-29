@@ -15,8 +15,8 @@ public class DropzoneTestController {
 	}
 	
 	@RequestMapping(value="/testdr", method=RequestMethod.POST)
-	public String receiveFile(@RequestParam MultipartFile file) {
-		System.out.println(file);
+	public String receiveFile(@RequestParam MultipartFile[] file) {
+		System.out.println(file.length);
 		return "testdropzone";
 	}
 	

@@ -1269,11 +1269,14 @@ var Dropzones = (function() {
           }
           currentFile = file;
 
+          /*
           //Append File in a Hidden Field (Extended)
           var uploadFile = file.name;
           $("#dzForm").append('<input type="hidden" name="file" id="file' + myDropzone.files.length + '" value="' + uploadFile + '" />');
+          */
         })
 
+        /*
         //Submit Form (Extended)
         var myDropzone = this;
         var submitBtn = document.querySelector("#dzSubmit");
@@ -1282,7 +1285,7 @@ var Dropzones = (function() {
           myDropzone.processQueue();
           document.expenses.submit();
         });
-
+        */
       }
     }
 

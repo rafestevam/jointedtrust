@@ -1,42 +1,77 @@
 <!DOCTYPE html>
-<html 
-xmlns:th="http://www.thymeleaf.org"
-th:lang="${#locale.language}">
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
 <head th:insert="fragments/head.html :: head('JointedTrust')"></head>
 <body th:fragment="basicLayout">
 
 	<nav th:replace="fragments/sidebar.html :: sidebar"></nav>
-	
+
 	<div class="main-content">
-		
-		<form class="mb-4" enctype="multipart/form-data" action="testdr" id="dropzoneForm" method="POST">
-			<div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="/testdr">
+
+		<form class="mb-4" enctype="multipart/form-data" id="dropzoneForm" method="POST">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+			<div class="dropzone dropzone-multiple" id="dzFile" data-toggle="dropzone" data-dropzone-multiple th:attr="data-dropzone-url=@{/testdr(${_csrf.parameterName}=${_csrf.token})}">
 				<div class="fallback">
-				    <div class="custom-file">
-				      <input type="file" class="custom-file-input" id="projectCoverUploads">
-				      <label class="custom-file-label" for="projectCoverUploads">Choose file</label>
-				    </div>
-				  </div>
-				
-				  <div class="dz-preview dz-preview-single">
-				    <div class="dz-preview-cover">
-				      <img class="dz-preview-img" data-dz-thumbnail>
-				    </div>
-				  </div>
+					<div class="custom-file">
+						<input type="file" name="file" class="custom-file-input" multiple>
+					</div>
+				</div>
+				<ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush">
+					<li class="list-group-item px-0">
+						<div class="row align-items-center">
+							<div class="col-auto">
+								<div class="avatar">
+									<img class="avatar-img rounded" src="..." alt="..." data-dz-thumbnail>
+								</div>
+							</div>
+							<div class="col ml--3">
+								<h4 class="mb-1" data-dz-name>...</h4>
+								<p class="small text-muted mb-0" data-dz-size>...</p>
+							</div>
+							<div class="col-auto">
+
+								<div class="dropdown">
+									<a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fe fe-more-vertical"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right">
+										<a href="#" class="dropdown-item" data-dz-remove> Remove </a>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</li>
+				</ul>
 			</div>
-			<button type="submit">Enviar arquivo</button>
+
+			<button type="submit" id="submitForm">Enviar arquivo</button>
 		</form>
-		
+
 	</div>
-	
+
 	<th:block th:include="fragments/scripts.html"></th:block>
-	
+
 	<script type="text/javascript">
-	
-	
+		$("#dropzoneForm").on('submit', function(e) {
+			var myDropzone = Dropzone.forElement("#dzFile");
+			e.preventDefault();
+			myDropzone.processQueue();
+		});
+
+		/*
+		$("#submitForm").on('click', function(e){
+			debugger;
+			var myDropzone = Dropzone.forElement("#dzFile");
+			e.preventDefault();
+			myDropzone.processQueue();
+		});
 		
-	
+		var myDropzone = Dropzone.forElement("#dzFile");
+		myDropzone.on('completemultiple', function(data, xhr, formData){
+			debugger;
+			formData.append('file', this.files);
+		});
+		 */
 	</script>
-	
+
 </body>
 </html>
