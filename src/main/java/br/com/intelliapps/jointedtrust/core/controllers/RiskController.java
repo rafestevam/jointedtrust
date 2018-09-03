@@ -57,6 +57,7 @@ public class RiskController {
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public String createRisk(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr, @RequestParam MultipartFile[] file) {
+		System.out.println(file.length);
 		
 		if(binding.hasErrors())
 			return this.riskForm(risk);

@@ -1262,6 +1262,9 @@ var Dropzones = (function() {
       previewTemplate: preview.html(),
       maxFiles: ( !multiple ) ? 1: null,
       acceptedFiles: ( !multiple ) ? 'image/*' : null,
+      headers:{
+        'X-CSRF-TOKEN': $this.data('dropzone-csrf')
+      },
       init: function() {
         this.on("addedfile", function(file) {
           if ( !multiple && currentFile) {

@@ -21,21 +21,49 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
+//		RequestMatcher csrfMatcher = new RequestMatcher() {
+//			
+//			private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$"); 
+//			
+//			private AntPathRequestMatcher[] reqMatchers = {
+//				new AntPathRequestMatcher("/risk/create")	
+//			};
+//			
+//			@Override
+//			public boolean matches(HttpServletRequest request) {
+//				
+//				if(allowedMethods.matcher(request.getMethod()).matches())
+//					return false;
+//				
+//				for(AntPathRequestMatcher rm : reqMatchers) {
+//					if(rm.matches(request))
+//						return false;
+//				}
+//				return true;
+//			}
+//		};
+		
+		
 		String[] resourceFiles = 
 			{"/resources/**",
 			 "/static/**"
 			};
-		http.authorizeRequests()
-			.antMatchers(resourceFiles).permitAll()
-			.antMatchers("/").permitAll()
-			//.antMatchers("/testdr").permitAll()
-			.antMatchers("/account/**").permitAll()
-			.antMatchers("/dashboard").authenticated()
-			.antMatchers("/profile/**").authenticated()
-		.and()
-		.formLogin()
-			.loginPage("/login").permitAll()
-			.defaultSuccessUrl("/dashboard");
+		http
+			.authorizeRequests()
+				.antMatchers(resourceFiles).permitAll()
+				.antMatchers("/").permitAll()
+				.antMatchers("/account/**").permitAll()
+				.antMatchers("/dashboard").authenticated()
+				.antMatchers("/profile/**").authenticated()
+				.antMatchers("/testdr").authenticated()
+			.and()
+			.formLogin()
+				.loginPage("/login").permitAll()
+				.defaultSuccessUrl("/dashboard");
+//			.and()
+//			.csrf()
+//				.requireCsrfProtectionMatcher(csrfMatcher);
 	}
 	
 	@Override

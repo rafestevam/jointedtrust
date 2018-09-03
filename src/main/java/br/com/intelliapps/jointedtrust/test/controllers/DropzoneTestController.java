@@ -1,6 +1,7 @@
 package br.com.intelliapps.jointedtrust.test.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,9 +16,9 @@ public class DropzoneTestController {
 	}
 	
 	@RequestMapping(value="/testdr", method=RequestMethod.POST)
-	public String receiveFile(@RequestParam MultipartFile[] file) {
+	public String receiveFile(@RequestParam MultipartFile[] file, Model model) {
 		System.out.println(file.length);
-		return "testdropzone";
+		return "redirect:/dashboard";
 	}
 	
 }

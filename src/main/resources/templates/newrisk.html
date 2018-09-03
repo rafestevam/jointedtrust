@@ -59,7 +59,7 @@ th:lang="${#locale.language}">
 					</div>
 					
 					<!-- Form -->
-					<form class="mb-4" th:object="${risk}" th:action="@{/risk/create}" method="POST" id="dzForm" enctype="multipart/form-data">
+					<form class="mb-4" th:object="${risk}" method="POST" id="riskForm" enctype="multipart/form-data" th:action="@{/risk/create}">
 						
 						<!-- Basic Data Container -->
 						<div id="formBasic" class="collapse multi-collapse">
@@ -105,7 +105,7 @@ th:lang="${#locale.language}">
 						<!-- Documents Container -->
 						<div id="formDocument" class="collapse multi-collapse">
 							<h1>DOCUMENTS UPLOAD CONTAINER</h1>
-							<div class="dropzone dropzone-multiple" data-toggle="dropzone" data-dropzone-multiple th:attr="data-dropzone-url=@{/risk/create}" id="dzFiles">
+							<div class="dropzone dropzone-multiple" data-toggle="dropzone" data-dropzone-multiple th:attr="data-dropzone-url=@{/risk/create}, data-dropzone-csrf=${_csrf.token}" id="dzFiles">
 								<!-- Drag and Drop Zone -->
 								<div class="fallback">
 									<div class="custom-file">
@@ -165,7 +165,6 @@ th:lang="${#locale.language}">
 	<th:block th:include="fragments/scripts.html"></th:block>
 	
 	<script th:src="@{/assets/js/riskForm.js}" type="text/javascript"></script>
-	<script th:src="@{/assets/js/riskDropzone.js}" type="text/javascript"></script>
 
 </body>
 </html>
