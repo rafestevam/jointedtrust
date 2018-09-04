@@ -32,19 +32,36 @@ $("#aFormDocument").click(function(){
 	$("#aFormCustom").removeClass("active");
 });
 
-//Specific configurations for Dropzone
+////Specific configurations for Dropzone
+//var myDropzone = Dropzone.forElement("#dzFiles");
+//myDropzone.on("addedfile", function(file){
+//	debugger;
+//	var file = file;
+//	$("input[type=file]").change(function(file){
+//		
+//	})
+//})
 var myDropzone = Dropzone.forElement("#dzFiles");
-myDropzone.on("addedfile", function(file){
-	alert("File added!");
+myDropzone.on("sending", function(file, obj, formData){
+	console.log("SENDING EVENT");
+	var formDataArray = $("#riskForm").serializeArray();
+	for(var i = 0; i < formDataArray.length; i++){
+		var formDataItem = formDataArray[i];
+		formData.append(formDataItem.name, formDataItem.value);
+	}
 });
-//if(myDropzone.files.length > 0){
-//	//e.preventDefault();
-//	myDropzone.processQueue();
-//}
 
 //Submitting values of Quill areas to the related hidden textarea fields
 $("#riskForm").on("submit", function(e){
 	$("#description").val($("#quillDescription").html());
 	$("#cause").val($("#quillCause").html());
 	$("#consequence").val($("#quillConsequence").html());
+
+	//Specific configurations for Dropzone
+	var myDropzone = Dropzone.forElement("#dzFiles");
+	if(myDropzone.files.length > 0){
+		e.stopPropagation();
+		e.preventDefault();
+		myDropzone.processQueue();
+	}
 });

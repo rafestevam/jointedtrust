@@ -1261,6 +1261,8 @@ var Dropzones = (function() {
       previewsContainer: preview.get(0),
       previewTemplate: preview.html(),
       maxFiles: ( !multiple ) ? 1: null,
+      //uploadMultiple: ( !multiple ) ? false : true,
+      //parallelUploads: ( !multiple ) ? null : 10,
       acceptedFiles: ( !multiple ) ? 'image/*' : null,
       headers:{
         'X-CSRF-TOKEN': $this.data('dropzone-csrf')
@@ -1271,24 +1273,7 @@ var Dropzones = (function() {
             this.removeFile(currentFile);
           }
           currentFile = file;
-
-          /*
-          //Append File in a Hidden Field (Extended)
-          var uploadFile = file.name;
-          $("#dzForm").append('<input type="hidden" name="file" id="file' + myDropzone.files.length + '" value="' + uploadFile + '" />');
-          */
         })
-
-        /*
-        //Submit Form (Extended)
-        var myDropzone = this;
-        var submitBtn = document.querySelector("#dzSubmit");
-
-        submitBtn.addEventListener("click", function(){
-          myDropzone.processQueue();
-          document.expenses.submit();
-        });
-        */
       }
     }
 

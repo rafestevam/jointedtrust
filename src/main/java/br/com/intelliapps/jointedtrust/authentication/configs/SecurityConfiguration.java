@@ -1,5 +1,9 @@
 package br.com.intelliapps.jointedtrust.authentication.configs;
 
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 @EnableWebSecurity(debug=false)
@@ -22,27 +27,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-//		RequestMatcher csrfMatcher = new RequestMatcher() {
-//			
-//			private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$"); 
-//			
+		RequestMatcher csrfMatcher = new RequestMatcher() {
+			
+			private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$"); 
+			
 //			private AntPathRequestMatcher[] reqMatchers = {
 //				new AntPathRequestMatcher("/risk/create")	
 //			};
-//			
-//			@Override
-//			public boolean matches(HttpServletRequest request) {
-//				
-//				if(allowedMethods.matcher(request.getMethod()).matches())
-//					return false;
-//				
+			
+			@Override
+			public boolean matches(HttpServletRequest request) {
+				
+				if(allowedMethods.matcher(request.getMethod()).matches())
+					return false;
+				
 //				for(AntPathRequestMatcher rm : reqMatchers) {
 //					if(rm.matches(request))
 //						return false;
 //				}
-//				return true;
-//			}
-//		};
+				return true;
+			}
+		};
 		
 		
 		String[] resourceFiles = 
@@ -50,6 +55,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			 "/static/**"
 			};
 		http
+			.csrf()
+				.requireCsrfProtectionMatcher(csrfMatcher)
+			.and()
 			.authorizeRequests()
 				.antMatchers(resourceFiles).permitAll()
 				.antMatchers("/").permitAll()
@@ -61,9 +69,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.formLogin()
 				.loginPage("/login").permitAll()
 				.defaultSuccessUrl("/dashboard");
-//			.and()
-//			.csrf()
-//				.requireCsrfProtectionMatcher(csrfMatcher);
 	}
 	
 	@Override

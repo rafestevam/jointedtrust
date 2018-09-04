@@ -56,7 +56,7 @@ public class RiskController {
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public String createRisk(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr, @RequestParam MultipartFile[] file) {
+	public String createRisk(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr, @RequestParam MultipartFile[] file, Model model) {
 		System.out.println(file.length);
 		
 		if(binding.hasErrors())
@@ -73,6 +73,7 @@ public class RiskController {
 		rAttr.addFlashAttribute("successMessage", successMessage);
 			
 		return "redirect:/risk";
+		//return this.riskList(model);
 	}
 	
 	private String getGuid() {
