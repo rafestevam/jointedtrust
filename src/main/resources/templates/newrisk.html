@@ -164,6 +164,9 @@ th:lang="${#locale.language}">
 	
 	<th:block th:include="fragments/scripts.html"></th:block>
 	
+	<script type="text/javascript">
+		var returnAddr = "[[@{/risk}]]";
+	</script>
 	<script th:src="@{/assets/js/riskForm.js}" type="text/javascript"></script>
 
 </body>

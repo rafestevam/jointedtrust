@@ -32,15 +32,7 @@ $("#aFormDocument").click(function(){
 	$("#aFormCustom").removeClass("active");
 });
 
-////Specific configurations for Dropzone
-//var myDropzone = Dropzone.forElement("#dzFiles");
-//myDropzone.on("addedfile", function(file){
-//	debugger;
-//	var file = file;
-//	$("input[type=file]").change(function(file){
-//		
-//	})
-//})
+//Callback events for Dropzone
 var myDropzone = Dropzone.forElement("#dzFiles");
 myDropzone.on("sending", function(file, obj, formData){
 	console.log("SENDING EVENT");
@@ -50,6 +42,10 @@ myDropzone.on("sending", function(file, obj, formData){
 		formData.append(formDataItem.name, formDataItem.value);
 	}
 });
+myDropzone.on("success", function(data){
+	console.log("REDIRECTING...");
+	$(location).attr('href', returnAddr);
+});
 
 //Submitting values of Quill areas to the related hidden textarea fields
 $("#riskForm").on("submit", function(e){
@@ -57,7 +53,7 @@ $("#riskForm").on("submit", function(e){
 	$("#cause").val($("#quillCause").html());
 	$("#consequence").val($("#quillConsequence").html());
 
-	//Specific configurations for Dropzone
+	//Files Queue Processor for Dropzone
 	var myDropzone = Dropzone.forElement("#dzFiles");
 	if(myDropzone.files.length > 0){
 		e.stopPropagation();
