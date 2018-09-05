@@ -66,9 +66,9 @@ public class RiskController {
 		MultiValueMap<String, Object> responseMap = new LinkedMultiValueMap<>();
 		
 		if(binding.hasErrors()) {
-			binding.getModel().entrySet()
-				.stream()
-				.forEach(entry -> responseMap.add(entry.getKey(), entry.getValue()));
+//			binding.getModel().entrySet()
+//				.stream()
+//				.forEach(entry -> responseMap.add(entry.getKey(), entry.getValue()));
 			return new ResponseEntity<>(responseMap, HttpStatus.INTERNAL_SERVER_ERROR);
 			//return this.riskForm(risk);
 		}
@@ -87,6 +87,7 @@ public class RiskController {
 		String successMessage = messageSource.getMessage("notification.risk.create.success", new String[] { risk.getName() }, locale);
 		rAttr.addFlashAttribute("successMessage", successMessage);
 		
+		responseMap.add("successTitle", "SUCESSO!");
 		responseMap.add("successMessage", (String) successMessage);
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 		//return "redirect:/risk";

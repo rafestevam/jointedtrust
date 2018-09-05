@@ -67,6 +67,7 @@ th:lang="${#locale.language}">
 							<div class="form-group">
 								<label><span th:text="#{pages.risk.form.field.id}"></span></label>
 								<input type="text" class="form-control" th:field="*{risk_id}">
+								<div class="invalid-feedback" id="e_risk_id"></div>
 							</div>
 	
 							<!-- Risk Name -->
@@ -161,6 +162,33 @@ th:lang="${#locale.language}">
 		
 		
 	</div>
+	
+	<!-- Modal: Response Messages -->
+	<div class="modal fade" id="modalMessage" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-card card">
+					<div class="card-header">
+						<div class="row align-items-center">
+							<div class="col">
+								<!-- Modal Title -->
+								<h4 class="card-header-title" id="responseMessageTitle"></h4>
+							</div>
+							<div class="col-auto">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span class="fe fe-x-circle mr-4"></span>
+								</button>
+							</div>				
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="alert" role="alert" id="responseMessage"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	
 	<th:block th:include="fragments/scripts.html"></th:block>
 	

@@ -43,7 +43,33 @@ myDropzone.on("sending", function(file, obj, formData){
 	}
 });
 myDropzone.on("success", function(data){
-	console.log("REDIRECTING...");
+	console.log("SUCCESS...");
+	var responseMsg = JSON.parse(data.xhr.responseText)
+	$("#responseMessage").text(responseMsg.successMessage[0]);
+	$("#responseMessage").addClass("alert-success");
+	$("#responseMessageTitle").text(responseMsg.successTitle[0]);
+	$("#modalMessage").modal("show");
+	//$(location).attr('href', returnAddr);
+});
+myDropzone.on("error", function(data, msg){
+	console.log("ERROR");
+	var responseMsg = JSON.parse(data.xhr.responseText);
+	myDropzone.removeAllFiles(true);	
+	
+	$("#formBasic").collapse('show');
+	$("#aFormBasic").addClass("active");
+	$("#formCustom").collapse('hide');
+	$("#aFormCustom").removeClass("active");
+	$("#formDocument").collapse('hide');
+	$("#aFormDocument").removeClass("active");
+	
+	//Form Validations Feedback
+	$("#risk_id").addClass("is-invalid");
+	$("#e_risk_id").text("ERROR");
+});
+
+//Redirecting page on Modal Hidden
+$("#modalMessage").on("hidden.bs.modal", function(e){
 	$(location).attr('href', returnAddr);
 });
 
@@ -61,3 +87,4 @@ $("#riskForm").on("submit", function(e){
 		myDropzone.processQueue();
 	}
 });
+
