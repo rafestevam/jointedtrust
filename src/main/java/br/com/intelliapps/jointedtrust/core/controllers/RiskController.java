@@ -66,9 +66,14 @@ public class RiskController {
 		MultiValueMap<String, Object> responseMap = new LinkedMultiValueMap<>();
 		
 		if(binding.hasErrors()) {
-//			binding.getModel().entrySet()
-//				.stream()
-//				.forEach(entry -> responseMap.add(entry.getKey(), entry.getValue()));
+			binding.getFieldErrors()
+				.stream()
+				.forEach(
+					e -> {
+						String errorMessage = messageSource.getMessage(e.getCode(), new String[] {}, locale);
+						responseMap.add(e.getField(), errorMessage);
+					}
+				);
 			return new ResponseEntity<>(responseMap, HttpStatus.INTERNAL_SERVER_ERROR);
 			//return this.riskForm(risk);
 		}

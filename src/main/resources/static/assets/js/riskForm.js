@@ -52,8 +52,18 @@ myDropzone.on("success", function(data){
 	//$(location).attr('href', returnAddr);
 });
 myDropzone.on("error", function(data, msg){
+	debugger;
 	console.log("ERROR");
 	var responseMsg = JSON.parse(data.xhr.responseText);
+	
+	//Form Validations Feedback
+	Object.keys(responseMsg).forEach(function(k){
+		var field = "#" + k;
+		var eField = "#e_" + k;
+		$(field).addClass("is-invalid");
+		$(eField).text(responseMsg[k][0]);
+	});
+	
 	myDropzone.removeAllFiles(true);	
 	
 	$("#formBasic").collapse('show');
@@ -63,9 +73,9 @@ myDropzone.on("error", function(data, msg){
 	$("#formDocument").collapse('hide');
 	$("#aFormDocument").removeClass("active");
 	
-	//Form Validations Feedback
-	$("#risk_id").addClass("is-invalid");
-	$("#e_risk_id").text("ERROR");
+//	//Form Validations Feedback
+//	$("#risk_id").addClass("is-invalid");
+//	$("#e_risk_id").text("ERROR");
 });
 
 //Redirecting page on Modal Hidden

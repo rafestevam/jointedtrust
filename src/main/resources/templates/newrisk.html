@@ -74,6 +74,7 @@ th:lang="${#locale.language}">
 							<div class="form-group">
 								<label><span th:text="#{pages.risk.form.field.name}"></span></label>
 								<input type="text" class="form-control" th:field="*{name}">
+								<div class="invalid-feedback" id="e_name"></div>
 							</div>
 							
 							<!-- Risk Description -->
