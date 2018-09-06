@@ -55,12 +55,12 @@ public class RiskController {
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.GET)
-	public String riskForm(@ModelAttribute("risk") Risk risk) {
+	public String riskForm(Risk risk, Model model) {
 		return "newrisk";
 	}
 	
-	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public ResponseEntity<?> createRisk(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr, @RequestParam MultipartFile[] file, Model model) {
+	@RequestMapping(value="/rest/create", method=RequestMethod.POST)
+	public ResponseEntity<?> createRiskByRest(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr, @RequestParam MultipartFile[] file, Model model) {
 		System.out.println(file.length);
 		
 		MultiValueMap<String, Object> responseMap = new LinkedMultiValueMap<>();
@@ -79,10 +79,8 @@ public class RiskController {
 		}
 		
 		if(riskService.existsByRiskId(risk.getRisk_id())) {
-			binding.rejectValue("risk_id", "valid.risk.error.riskid.exists");
-			binding.getModel().entrySet()
-				.stream()
-				.forEach(entry -> responseMap.add(entry.getKey(), entry.getValue()));
+			String errorMessage = messageSource.getMessage("valid.risk.error.riskid.exists", new String[] {}, locale);
+			responseMap.add("risk_id", errorMessage);
 			return new ResponseEntity<>(responseMap, HttpStatus.INTERNAL_SERVER_ERROR);
 			//return this.riskForm(risk);
 		}
@@ -97,6 +95,29 @@ public class RiskController {
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 		//return "redirect:/risk";
 		//return this.riskList(model);
+	}
+	
+	@RequestMapping(value="/create", method=RequestMethod.POST)
+	public String createRisk(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr, @RequestParam MultipartFile[] file, Model model) {
+		System.out.println(file.length);
+		
+		if(binding.hasErrors()) {
+			return this.riskForm(risk, model);
+		}
+		
+		if(riskService.existsByRiskId(risk.getRisk_id())) {
+			binding.rejectValue("risk_id", "valid.risk.error.riskid.exists");
+			return this.riskForm(risk, model);
+		}
+		
+		risk.setGuid(this.getGuid());
+		//riskService.save(risk);
+		String successMessage = messageSource.getMessage("notification.risk.create.success", new String[] { risk.getName() }, locale);
+		String successMessageTitle = messageSource.getMessage("notification.risk.create.success.title", new String[] { risk.getName() }, locale);
+		rAttr.addFlashAttribute("successMessage", successMessage);
+		rAttr.addFlashAttribute("successMessageTitle", successMessageTitle);
+		
+		return "redirect:/risk";
 	}
 	
 	private String getGuid() {

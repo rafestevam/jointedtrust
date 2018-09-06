@@ -66,15 +66,17 @@ th:lang="${#locale.language}">
 							<!-- Risk ID -->
 							<div class="form-group">
 								<label><span th:text="#{pages.risk.form.field.id}"></span></label>
-								<input type="text" class="form-control" th:field="*{risk_id}">
+								<input type="text" class="form-control" th:field="*{risk_id}" th:errorclass="is-invalid">
 								<div class="invalid-feedback" id="e_risk_id"></div>
+								<div class="invalid-feedback" th:if="${#fields.hasErrors('risk_id')}" th:errors="*{risk_id}" ></div>
 							</div>
 	
 							<!-- Risk Name -->
 							<div class="form-group">
 								<label><span th:text="#{pages.risk.form.field.name}"></span></label>
-								<input type="text" class="form-control" th:field="*{name}">
+								<input type="text" class="form-control" th:field="*{name}" th:errorclass="is-invalid">
 								<div class="invalid-feedback" id="e_name"></div>
+								<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>
 							</div>
 							
 							<!-- Risk Description -->
@@ -107,7 +109,7 @@ th:lang="${#locale.language}">
 						<!-- Documents Container -->
 						<div id="formDocument" class="collapse multi-collapse">
 							<h1>DOCUMENTS UPLOAD CONTAINER</h1>
-							<div class="dropzone dropzone-multiple" data-toggle="dropzone" data-dropzone-multiple th:attr="data-dropzone-url=@{/risk/create}, data-dropzone-csrf=${_csrf.token}" id="dzFiles">
+							<div class="dropzone dropzone-multiple" data-toggle="dropzone" data-dropzone-multiple th:attr="data-dropzone-url=@{/risk/rest/create}, data-dropzone-csrf=${_csrf.token}" id="dzFiles">
 								<!-- Drag and Drop Zone -->
 								<div class="fallback">
 									<div class="custom-file">

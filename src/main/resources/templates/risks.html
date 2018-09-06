@@ -8,10 +8,12 @@ th:lang="${#locale.language}">
 	<nav th:replace="fragments/sidebar.html :: sidebar"></nav>
 	
 	<div class="main-content">
-	
+		
+		<!--  
 		<div class="alert alert-success" role="alert" th:if="${successMessage}">
 			<span th:text="${successMessage}"></span>
 		</div>
+		-->
 		
 		<!-- Header -->
 		<div class="header">
@@ -126,7 +128,42 @@ th:lang="${#locale.language}">
 		
 	</div>
 	
+	<!-- Modal: Response Messages -->
+	<div class="modal fade" id="successMessage" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-card card">
+					<div class="card-header">
+						<div class="row align-items-center">
+							<div class="col">
+								<!-- Modal Title -->
+								<h4 class="card-header-title"><span th:text="${successMessageTitle}"></span></h4>
+							</div>
+							<div class="col-auto">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span class="fe fe-x-circle mr-4"></span>
+								</button>
+							</div>				
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="alert alert-success" role="alert">
+							<span th:text="${successMessage}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+	
 	<th:block th:include="fragments/scripts.html"></th:block>
+	
+	<script type="text/javascript">
+		var showPopup = "[[${successMessage}]]";
+		if(showPopup !== undefined && showPopup !== ""){
+			$("#successMessage").modal("show");
+		}
+	</script>
 
 </body>
 </html>

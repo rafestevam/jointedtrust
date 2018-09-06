@@ -95,6 +95,6 @@ $("#riskForm").on("submit", function(e){
 		e.stopPropagation();
 		e.preventDefault();
 		myDropzone.processQueue();
-	}
+	}	
 });
 
