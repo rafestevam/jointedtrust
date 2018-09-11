@@ -1260,9 +1260,9 @@ var Dropzones = (function() {
       thumbnailHeight: null,
       previewsContainer: preview.get(0),
       previewTemplate: preview.html(),
-      maxFiles: ( !multiple ) ? 1: null,
+      maxFiles: ( !multiple ) ? 1: 10000,
       uploadMultiple: ( !multiple ) ? false : true,
-      parallelUploads: ( !multiple ) ? 1 : 10,
+      parallelUploads: ( !multiple ) ? 1 : 10000,
       acceptedFiles: ( !multiple ) ? 'image/*' : null,
       headers:{
         'X-CSRF-TOKEN': $this.data('dropzone-csrf')

@@ -34,12 +34,16 @@ $("#aFormDocument").click(function(){
 
 //Callback events for Dropzone
 var myDropzone = Dropzone.forElement("#dzFiles");
-myDropzone.on("sending", function(file, obj, formData){
+myDropzone.on("sendingmultiple", function(file, obj, formData){
 	console.log("SENDING EVENT");
+	debugger;
 	var formDataArray = $("#riskForm").serializeArray();
 	for(var i = 0; i < formDataArray.length; i++){
 		var formDataItem = formDataArray[i];
 		formData.append(formDataItem.name, formDataItem.value);
+	}
+	for(var j = 0; j < file.length; j++){
+		formData.append("file", file[j]);
 	}
 });
 myDropzone.on("success", function(data){
@@ -52,7 +56,6 @@ myDropzone.on("success", function(data){
 	//$(location).attr('href', returnAddr);
 });
 myDropzone.on("error", function(data, msg){
-	debugger;
 	console.log("ERROR");
 	var responseMsg = JSON.parse(data.xhr.responseText);
 	

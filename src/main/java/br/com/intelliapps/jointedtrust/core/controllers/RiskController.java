@@ -66,8 +66,8 @@ public class RiskController {
 	}
 	
 	@RequestMapping(value="/rest/create", method=RequestMethod.POST)
-	public ResponseEntity<?> createRiskByRest(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr, @RequestParam MultipartFile[] files, Model model) {
-		System.out.println(files.length);
+	public ResponseEntity<?> createRiskByRest(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr, @RequestParam MultipartFile[] file, Model model) {
+		System.out.println(file.length);
 		
 		MultiValueMap<String, Object> responseMap = new LinkedMultiValueMap<>();
 		
@@ -95,7 +95,7 @@ public class RiskController {
 		
 		//Adding Files related to Risk
 		List<File> fileList = new ArrayList<File>();
-		Map<String, String> filesMap = fileSaver.write("risk-docs", files, risk.getName());
+		Map<String, String> filesMap = fileSaver.write("risk-docs", file, risk.getName());
 		filesMap.entrySet()
 			.forEach( entry -> {
 				fileList.add(new File(entry.getKey(), entry.getValue()));
