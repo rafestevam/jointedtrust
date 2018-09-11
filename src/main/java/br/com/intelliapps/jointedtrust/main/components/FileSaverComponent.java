@@ -38,7 +38,7 @@ public class FileSaverComponent {
 
 			Arrays.asList(files).stream().forEach(file -> {
 				try {
-					String fileName = StringUtils.cleanPath(objTitle + "/" + file.getOriginalFilename());
+					String fileName = StringUtils.cleanPath(baseFolder + "/" + objTitle + "/" + file.getOriginalFilename());
 					Path targetLoc = this.rootLocation.resolve(fileName);
 					if (Files.notExists(targetLoc)) {
 						Files.createDirectories(targetLoc);
@@ -47,7 +47,7 @@ public class FileSaverComponent {
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
-				returnMap.put(file.getOriginalFilename(), rootLocation + "/" + objTitle + "/" + file.getOriginalFilename());
+				returnMap.put(file.getOriginalFilename(), rootLocation + "/" + baseFolder + "/" + objTitle + "/" + file.getOriginalFilename());
 			});
 			return returnMap;
 		} catch (Exception e) {

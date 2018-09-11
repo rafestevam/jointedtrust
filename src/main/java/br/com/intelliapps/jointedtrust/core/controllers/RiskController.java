@@ -1,7 +1,9 @@
 package br.com.intelliapps.jointedtrust.core.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -18,7 +20,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.intelliapps.jointedtrust.core.models.Risk;
 import br.com.intelliapps.jointedtrust.core.services.RiskService;
 import br.com.intelliapps.jointedtrust.core.validators.RiskValidator;
+import br.com.intelliapps.jointedtrust.main.components.File;
+import br.com.intelliapps.jointedtrust.main.components.FileSaverComponent;
 
 @Controller
 @RequestMapping("/risk")
@@ -41,6 +44,9 @@ public class RiskController {
 	
 	@Autowired
 	private Locale locale;
+	
+	@Autowired
+	private FileSaverComponent fileSaver;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -60,8 +66,8 @@ public class RiskController {
 	}
 	
 	@RequestMapping(value="/rest/create", method=RequestMethod.POST)
-	public ResponseEntity<?> createRiskByRest(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr, @RequestParam MultipartFile[] file, Model model) {
-		System.out.println(file.length);
+	public ResponseEntity<?> createRiskByRest(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr, @RequestParam MultipartFile[] files, Model model) {
+		System.out.println(files.length);
 		
 		MultiValueMap<String, Object> responseMap = new LinkedMultiValueMap<>();
 		
@@ -86,11 +92,22 @@ public class RiskController {
 		}
 		
 		risk.setGuid(this.getGuid());
-		//riskService.save(risk);
-		String successMessage = messageSource.getMessage("notification.risk.create.success", new String[] { risk.getName() }, locale);
-		rAttr.addFlashAttribute("successMessage", successMessage);
 		
-		responseMap.add("successTitle", "SUCESSO!");
+		//Adding Files related to Risk
+		List<File> fileList = new ArrayList<File>();
+		Map<String, String> filesMap = fileSaver.write("risk-docs", files, risk.getName());
+		filesMap.entrySet()
+			.forEach( entry -> {
+				fileList.add(new File(entry.getKey(), entry.getValue()));
+			});
+		risk.setFiles(fileList);
+		
+		riskService.save(risk);
+		String successMessage = messageSource.getMessage("notification.risk.create.success", new String[] { risk.getName() }, locale);
+		String successMessageTitle = messageSource.getMessage("notification.risk.create.success.title", new String[] {}, locale);
+		//rAttr.addFlashAttribute("successMessage", successMessage);
+		
+		responseMap.add("successTitle", successMessageTitle);
 		responseMap.add("successMessage", (String) successMessage);
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 		//return "redirect:/risk";
@@ -113,7 +130,7 @@ public class RiskController {
 		risk.setGuid(this.getGuid());
 		//riskService.save(risk);
 		String successMessage = messageSource.getMessage("notification.risk.create.success", new String[] { risk.getName() }, locale);
-		String successMessageTitle = messageSource.getMessage("notification.risk.create.success.title", new String[] { risk.getName() }, locale);
+		String successMessageTitle = messageSource.getMessage("notification.risk.create.success.title", new String[] {}, locale);
 		rAttr.addFlashAttribute("successMessage", successMessage);
 		rAttr.addFlashAttribute("successMessageTitle", successMessageTitle);
 		
