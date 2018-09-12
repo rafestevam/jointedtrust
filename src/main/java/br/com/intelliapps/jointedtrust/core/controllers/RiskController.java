@@ -52,8 +52,17 @@ public class RiskController {
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(new RiskValidator());
 	}
+	
+	@RequestMapping(value="/show", method=RequestMethod.GET)
+	public String showRisk(@RequestParam("guid") String guid, Model model) {
+		
+		Risk risk = riskService.findByGuid(guid);
+		model.addAttribute("risk", risk);
+		
+		return "risk";
+	}
 
-	@RequestMapping("")
+	@RequestMapping("/list")
 	public String riskList(Model model) {
 		List<Risk> risks = riskService.findTopRisks(PageRequest.of(0, 9));
 		model.addAttribute("risks", risks);
@@ -134,7 +143,7 @@ public class RiskController {
 		rAttr.addFlashAttribute("successMessage", successMessage);
 		rAttr.addFlashAttribute("successMessageTitle", successMessageTitle);
 		
-		return "redirect:/risk";
+		return "redirect:/risk/list";
 	}
 	
 	private String getGuid() {
