@@ -34,14 +34,76 @@ th:lang="${#locale.language}">
 							</h1>
 						</div>
 					</div>
+					<!-- Submenu Row -->
+					<div class="row align-items-center">
+						<div class="col">
+							<ul class="nav nav-tabs nav-overflow header-tabs">
+								<li class="nav-item">
+									<a href="#overview" class="nav-link active" data-toggle="collapse" aria-expanded="false" aria-controls="overview" role="button" id="aOverview">
+										<span th:text="#{pages.risk.show.submenu.overview}"></span>
+									</a>
+								</li>	
+								<li class="nav-item">
+									<a href="#files" class="nav-link" data-toggle="false" aria-expanded="false" aria-controls="files" role="button" id="aFiles">
+										<span th:text="#{pages.risk.show.submenu.files}"></span>
+									</a>
+								</li>	
+								<li class="nav-item">
+									<a href="#customize" class="nav-link" data-toggle="false" aria-expanded="false" aria-controls="customize" role="button" id="aCustomize">
+										<span th:text="#{pages.risk.show.submenu.customize}"></span>
+									</a>
+								</li>	
+							</ul>
+						</div>
+					</div>
 				</div>
 				
 			</div>
 		</div>
 		
+		<!-- Content -->
+		<div class="container-fluid">
+		
+			<!-- (Overview Container) -->
+			<div class="collapse multi-collapse" id="overview">
+				<div class="row">
+					<div class="col-12">
+						<h1>OVERVIEW CONTAINER</h1>
+					</div>
+				</div>
+			</div>
+		
+			<!-- (Files Container) -->
+			<div class="collapse multi-collapse" id="files">
+				<div class="row">
+					<div class="col-12">
+						<h1>FILES CONTAINER</h1>
+						<!-- Files -->
+						<div class="card" data-toggle="lists" data-lists-values='["name"]'>
+						
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- (Customize Container) -->
+			<div class="collapse multi-collapse" id="customize">
+				<div class="row">
+					<div class="col-12">
+						<h1>CUSTOMIZE CONTAINER</h1>
+					</div>
+				</div>
+			</div>
+		
+		</div>
+		
+
+
+		
 	</div>
 	
 	<th:block th:include="fragments/scripts.html"></th:block>
+	<script th:src="@{/assets/js/showRisk.js}" type="text/javascript"></script>
 
 </body>
 </html>
