@@ -10,8 +10,8 @@ $("#aOverview").click(function(){
 	$("#overview").collapse('show');
 	$("#aFiles").removeClass("active");
 	$("#files").collapse('hide');
-	$("#aCustomize").removeClass("active");
-	$("#customize").collapse('hide');
+	$("#aAssigned").removeClass("active");
+	$("#assigned").collapse('hide');
 });
 
 $("#aFiles").click(function(){
@@ -19,13 +19,13 @@ $("#aFiles").click(function(){
 	$("#files").collapse('show');
 	$("#aOverview").removeClass("active");
 	$("#overview").collapse('hide');
-	$("#aCustomize").removeClass("active");
-	$("#customize").collapse('hide');
+	$("#aAssigned").removeClass("active");
+	$("#assigned").collapse('hide');
 });
 
-$("#aCustomize").click(function(){
+$("#aAssigned").click(function(){
 	$(this).addClass("active");
-	$("#customize").collapse('show');
+	$("#assigned").collapse('show');
 	$("#aOverview").removeClass("active");
 	$("#overview").collapse('hide');
 	$("#aFiles").removeClass("active");

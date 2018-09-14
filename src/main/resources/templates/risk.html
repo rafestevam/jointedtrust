@@ -49,8 +49,8 @@ th:lang="${#locale.language}">
 									</a>
 								</li>	
 								<li class="nav-item">
-									<a href="#customize" class="nav-link" data-toggle="false" aria-expanded="false" aria-controls="customize" role="button" id="aCustomize">
-										<span th:text="#{pages.risk.show.submenu.customize}"></span>
+									<a href="#assigned" class="nav-link" data-toggle="false" aria-expanded="false" aria-controls="assigned" role="button" id="aAssigned">
+										<span th:text="#{pages.risk.show.submenu.assigned}"></span>
 									</a>
 								</li>	
 							</ul>
@@ -77,20 +77,126 @@ th:lang="${#locale.language}">
 			<div class="collapse multi-collapse" id="files">
 				<div class="row">
 					<div class="col-12">
-						<h1>FILES CONTAINER</h1>
+						
 						<!-- Files -->
 						<div class="card" data-toggle="lists" data-lists-values='["name"]'>
-						
+							<div class="card-header">
+								<div class="row align-items-center">
+									
+									<div class="col">
+										<!-- List Title -->
+										<h4 class="card-header-title">
+											<span th:text="#{pages.risk.show.list.title}"></span>
+										</h4>
+									</div>
+									
+									<div class="col-auto">
+										<!-- Dropdown -->
+										<div class="dropdown">
+											<!-- Toggle -->
+											<a href="#!" class="small text-muted dropdown-toggle" data-toggle="dropdown">
+												<span th:text="#{pages.risk.show.list.order}"></span>
+											</a>
+											<!-- Menu -->
+											<div class="dropdown-menu">
+												<a class="dropdown-item sort" data-sort="name" href="#!">
+													<span th:text="#{pages.risk.show.list.order.asc}"></span>
+												</a>
+												<a class="dropdown-item sort" data-sort="name" href="#!">
+													<span th:text="#{pages.risk.show.list.order.desc}"></span>
+												</a>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-auto">
+										<!-- Upload Button -->
+										<a href="#!" class="btn btn-sm btn-primary">
+											<span th:text="#{pages.risk.show.list.button.upload}"></span>
+										</a>
+									</div>
+									
+								</div><!-- / .row -->
+							</div>
+							<div class="card-header">
+								<div class="row">
+									<div class="col-12">
+									
+										<!-- Form (Search) -->
+										<form>
+											<div class="input-group input-group-flush input-group-merge">
+												<input type="search" class="form-control form-control-prepended search" th:attr="placeholder=#{pages.risk.show.list.search.placeholder}">
+												<div class="input-group-prepend">
+													<div class="input-group-text">
+														<span class="fe fe-search"></span>
+													</div>
+												</div>
+											</div>
+										</form>
+									
+									</div>
+								</div><!-- / .row -->
+							</div>
+							<div class="card-body">
+								
+								<!-- File List -->
+								<ul class="list-group list-group-lg list-group-flush list my--4">
+									<li class="list-group-item px-0" th:each="file : ${risk.files}">
+									
+										<div class="row align-items-center">
+											<div class="col-auto">
+											
+												<!-- Avatar -->
+												<a href="#!" class="avatar avatar-lg">
+													<img th:src="@{/assets/img/illustrations/file-text.svg}" class="avatar-img rounded">
+												</a>
+											
+											</div>
+											<div class="col ml--2">
+												
+												<!-- File Title -->
+												<h4 class="card-title mb-1 name">
+													<a href="#!"><span th:text="${file.name}"></span></a>
+												</h4>
+												
+											</div>
+											<div class="col-auto">
+												<!-- Download Button -->
+												<a href="#!" class="btn btn-sm btn-white d-none d-md-inline-block">
+													<span th:text="#{pages.risk.show.list.button.download}"></span>
+												</a>
+											</div>
+											<div class="col-auto">
+												<!-- Dropdown -->
+												<div class="dropdown">
+													<a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+														<i class="fe fe-more-vertical"></i>
+													</a>
+													<!-- Menu -->
+													<div class="dropdown-menu dropdown-menu-right">
+														<a href="#!" class="dropdown-item">
+															<span th:text="#{pages.risk.show.list.dropdown.delete}"></span>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									
+									</li>
+								</ul>
+								
+							</div>
 						</div>
+						
 					</div>
 				</div>
 			</div>
 			
 			<!-- (Customize Container) -->
-			<div class="collapse multi-collapse" id="customize">
+			<div class="collapse multi-collapse" id="assigned">
 				<div class="row">
 					<div class="col-12">
-						<h1>CUSTOMIZE CONTAINER</h1>
+						<h1>ASSIGNED OBJS CONTAINER</h1>
 					</div>
 				</div>
 			</div>
