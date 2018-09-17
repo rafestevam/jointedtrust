@@ -159,6 +159,16 @@ th:lang="${#locale.language}">
 													<a href="#!"><span th:text="${file.name}"></span></a>
 												</h4>
 												
+												<!-- File Extension -->
+												<p class="card-text small text-muted mb-1">
+													<span th:text="#{pages.risk.show.list.filetype(${file.fileType})}"></span>
+												</p>
+												
+												<!-- File Upload Info -->
+												<p class="card-text small text-muted">
+													<span th:text="#{pages.risk.show.list.uploadedby(${file.uploadedBy}, ${risk.createDate})}"></span>
+												</p>
+												
 											</div>
 											<div class="col-auto">
 												<!-- Download Button -->

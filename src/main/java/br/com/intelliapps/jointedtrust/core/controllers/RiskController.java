@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.intelliapps.jointedtrust.authentication.services.LoggedUserService;
 import br.com.intelliapps.jointedtrust.core.models.Risk;
 import br.com.intelliapps.jointedtrust.core.services.RiskService;
 import br.com.intelliapps.jointedtrust.core.validators.RiskValidator;
@@ -47,6 +48,9 @@ public class RiskController {
 	
 	@Autowired
 	private FileSaverComponent fileSaver;
+	
+	@Autowired
+	private LoggedUserService loggedUserService;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -107,7 +111,13 @@ public class RiskController {
 		Map<String, String> filesMap = fileSaver.write("risk-docs", file, risk.getName());
 		filesMap.entrySet()
 			.forEach( entry -> {
-				fileList.add(new File(entry.getKey(), entry.getValue()));
+				File newFile = new File(entry.getKey(), entry.getValue());
+				int offset = entry.getKey().length() - 3;
+				int total = entry.getKey().length();
+				String fileType = entry.getKey().substring(offset, total);
+				newFile.setFileType(fileType.toUpperCase());
+				newFile.setUploadedBy(loggedUserService.loggedUser().getName().toUpperCase());
+				fileList.add(newFile);
 			});
 		risk.setFiles(fileList);
 		

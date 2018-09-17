@@ -7,6 +7,8 @@ public class File {
 	
 	private String name;
 	private String address;
+	private String fileType;
+	private String uploadedBy;
 	
 	public File() {
 	}
@@ -30,6 +32,22 @@ public class File {
 	
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
+	public String getUploadedBy() {
+		return uploadedBy;
+	}
+
+	public void setUploadedBy(String uploadedBy) {
+		this.uploadedBy = uploadedBy;
 	}
 
 }
