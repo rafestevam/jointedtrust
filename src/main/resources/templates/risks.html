@@ -76,7 +76,7 @@ th:lang="${#locale.language}">
 							<div class="col-12 col-md-6 col-xl-4">
 								<!-- Card -->
 								<div class="card">
-									<a href="#">
+									<a th:href="@{/risk/show(guid=${risk.guid})}">
 										<img th:src="@{/assets/img/avatars/projects/project-1.jpg}" class="card-img-top">
 									</a>
 									<div class="card-body">
@@ -128,8 +128,30 @@ th:lang="${#locale.language}">
 					</div><!-- / #tabPaneOne -->
 					<div class="tab-pane fade" id="tabPaneTwo" role="tabpanel">
 					
-						<div class="row list">
-						
+						<div class="row list" th:each="risk : ${risks}">
+							<div class="col-12">
+								
+								<div class="card">
+									<div class="card-body">
+										<div class="row align-items-center">
+											<div class="col-auto">
+												<!-- Avatar -->
+												<a th:href="@{/risk/show(guid=${risk.guid})}" class="avatar avatar-lg avatar-4by3">
+													<img th:src="@{/assets/img/avatars/projects/project-1.jpg}" class="avatar-img rounded">
+												</a>
+											</div>
+
+											<div class="col ml--2">
+												<!-- Title -->
+												<h4 class="card-title mb-1 name">
+													<a th:href="@{/risk/show(guid=${risk.guid})}"><span th:text="${risk.name}"></span></a>
+												</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
 						</div><!-- / .row -->
 					
 					</div><!-- / #tabPaneTwo -->

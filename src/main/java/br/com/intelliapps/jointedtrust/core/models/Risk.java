@@ -18,7 +18,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import br.com.intelliapps.jointedtrust.main.components.File;
+import br.com.intelliapps.jointedtrust.main.components.DocFile;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -43,7 +43,7 @@ public class Risk {
 	private String consequence;
 	
 	@ElementCollection
-	private List<File> files = new ArrayList<File>();
+	private List<DocFile> files = new ArrayList<DocFile>();
 	
 	@CreatedDate
 	private Date createDate;
@@ -137,11 +137,11 @@ public class Risk {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public List<File> getFiles() {
+	public List<DocFile> getFiles() {
 		return files;
 	}
 
-	public void setFiles(List<File> files) {
+	public void setFiles(List<DocFile> files) {
 		this.files = files;
 	}
 	

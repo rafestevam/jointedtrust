@@ -172,7 +172,7 @@ th:lang="${#locale.language}">
 											</div>
 											<div class="col-auto">
 												<!-- Download Button -->
-												<a href="#!" class="btn btn-sm btn-white d-none d-md-inline-block">
+												<a th:href="@{/risk/download(filePath=${file.address})}" class="btn btn-sm btn-white d-none d-md-inline-block">
 													<span th:text="#{pages.risk.show.list.button.download}"></span>
 												</a>
 											</div>

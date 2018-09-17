@@ -3,17 +3,17 @@ package br.com.intelliapps.jointedtrust.main.components;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class File {
+public class DocFile {
 	
 	private String name;
 	private String address;
 	private String fileType;
 	private String uploadedBy;
 	
-	public File() {
+	public DocFile() {
 	}
 
-	public File(String name, String address) {
+	public DocFile(String name, String address) {
 		this.name = name;
 		this.address = address;
 	}

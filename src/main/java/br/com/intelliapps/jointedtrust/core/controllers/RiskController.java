@@ -1,17 +1,25 @@
 package br.com.intelliapps.jointedtrust.core.controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,8 +38,9 @@ import br.com.intelliapps.jointedtrust.authentication.services.LoggedUserService
 import br.com.intelliapps.jointedtrust.core.models.Risk;
 import br.com.intelliapps.jointedtrust.core.services.RiskService;
 import br.com.intelliapps.jointedtrust.core.validators.RiskValidator;
-import br.com.intelliapps.jointedtrust.main.components.File;
+import br.com.intelliapps.jointedtrust.main.components.DocFile;
 import br.com.intelliapps.jointedtrust.main.components.FileSaverComponent;
+import br.com.intelliapps.jointedtrust.main.utils.MediaTypeUtils;
 
 @Controller
 @RequestMapping("/risk")
@@ -51,6 +60,9 @@ public class RiskController {
 	
 	@Autowired
 	private LoggedUserService loggedUserService;
+	
+	@Autowired
+	private ServletContext servletContext;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -107,11 +119,11 @@ public class RiskController {
 		risk.setGuid(this.getGuid());
 		
 		//Adding Files related to Risk
-		List<File> fileList = new ArrayList<File>();
+		List<DocFile> fileList = new ArrayList<DocFile>();
 		Map<String, String> filesMap = fileSaver.write("risk-docs", file, risk.getName());
 		filesMap.entrySet()
 			.forEach( entry -> {
-				File newFile = new File(entry.getKey(), entry.getValue());
+				DocFile newFile = new DocFile(entry.getKey(), entry.getValue());
 				int offset = entry.getKey().length() - 3;
 				int total = entry.getKey().length();
 				String fileType = entry.getKey().substring(offset, total);
@@ -158,6 +170,26 @@ public class RiskController {
 	
 	private String getGuid() {
 		return UUID.randomUUID().toString();
+	}
+	
+	@RequestMapping(value="/download", method=RequestMethod.GET)
+	public ResponseEntity<InputStreamResource> downloadFile(@RequestParam("filePath") String filePath){
+		
+		try {
+			Path path = Paths.get(filePath);
+			MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(servletContext, path.getFileName().toString());
+			File file = new File(filePath);
+			InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+			
+			return ResponseEntity.ok()
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + path.getFileName().toString())
+					.contentType(mediaType)
+					.body(resource);
+			
+		}catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 	
 }
