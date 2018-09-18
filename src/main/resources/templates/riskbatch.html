@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+th:lang="${#locale.language}">
+<head th:insert="fragments/head.html :: head('JointedTrust')"></head>
+<body th:fragment="basicLayout">
+
+	<nav th:replace="fragments/sidebar.html :: sidebar"></nav>
+	
+	<div class="main-content">
+		<div class="main-content">
+			<div class="container-fluid">
+				<div class="row justify-content-center">
+				
+					<div class="col-12 col-lg-10 col-xl-8">
+					
+						<!-- Header -->
+						<div class="header mt-md-5">
+							<div class="header-body">
+								<div class="row align-items-center">
+									<div class="col">
+									
+										<!-- Pretitle -->
+										<h6 class="header-pretitle">
+											<span th:text="#{pages.risk.load.header.pretitle}"></span>
+										</h6>
+										
+										<!-- Title -->
+										<h1 class="header-title">
+											<span th:text="#{pages.risk.load.header.title}"></span>
+										</h1>
+									
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Instructions Card -->
+						<div class="card bg-light border mb-3">
+							<div class="card-body">
+								<p class="mb-2"><span th:text="#{pages.risk.load.instructions.title}"></span></p>
+								<p class="small text-muted mb-2"><span th:text="#{pages.risk.load.instructions.subtitle}"></span></p>
+								<ul class="small text-muted pl-4 mb-0">
+									<li><span th:text="#{pages.risk.load.instructions.1}"></span></li>
+									<li><span th:text="#{pages.risk.load.instructions.2}"></span></li>
+									<li><span th:utext="#{pages.risk.load.instructions.3}"></span></li>
+								</ul>
+							</div>
+						</div>
+						
+						<!-- Divider -->
+						<hr class="mt-5 mb-5">
+						
+						<form class="mb-4">
+							<!-- Dropzone Canvas -->
+							<div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="http://" data-dropzone-mimetype="text/csv" id="dzFiles">
+								<div class="fallback">
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" id="uploadBatch">
+									</div>
+								</div>
+								<div class="dz-preview dz-preview-single">
+									<div class="dz-details">
+									    <img th:src="@{/assets/img/illustrations/file-text.svg}" data-dz-thumbnail />
+									    <div class="dz-filename"><span data-dz-name></span></div>
+									    <div class="dz-size" data-dz-size></div>
+								  	</div>
+								</div>
+							</div>
+							
+							<!-- Divider -->
+							<hr class="mt-5 mb-5">
+							
+							<!-- Submit Button -->
+							<button type="submit" class="btn btn-block btn-primary" id="dzSubmit">
+								<span th:text="#{pages.risk.load.form.button.submit}"></span>
+							</button>
+							<!-- Cancel Button -->
+							<a href="#" onClick="window.history.go(-1)" class="btn btn-block btn-link text-muted">
+								<span th:text="#{pages.risk.load.form.button.cancel}"></span>
+							</a>
+						</form>
+					
+					</div>
+				
+				</div>
+			</div>
+		</div>	
+		
+	</div>
+	
+	<th:block th:include="fragments/scripts.html"></th:block>
+	<script th:src="@{/assets/js/riskBatch.js}" type="text/javascript"></script>
+
+</body>
+</html>

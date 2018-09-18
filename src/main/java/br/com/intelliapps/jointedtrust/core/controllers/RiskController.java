@@ -192,4 +192,9 @@ public class RiskController {
 		
 	}
 	
+	@RequestMapping(value="/batch", method=RequestMethod.GET)
+	public String batchLoad() {
+		return "riskbatch";
+	}
+	
 }

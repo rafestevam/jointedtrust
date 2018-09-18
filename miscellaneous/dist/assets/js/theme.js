@@ -1249,6 +1249,8 @@ var Dropzones = (function() {
 
   function init($this) {
     var multiple = ( $this.data('dropzone-multiple') !== undefined ) ? true : false;
+    //var batch = ( $this.data('dropzone-batch') !== undefined ) ? true : false; //
+    var mimeType = $this.data('dropzone-mimetype');
     var preview = $this.find($dropzonePreview);
     var currentFile = undefined;
 
@@ -1263,7 +1265,8 @@ var Dropzones = (function() {
       maxFiles: ( !multiple ) ? 1: 10000,
       uploadMultiple: ( !multiple ) ? false : true,
       parallelUploads: ( !multiple ) ? 1 : 10000,
-      acceptedFiles: ( !multiple ) ? 'image/*' : null,
+      //acceptedFiles: ( !multiple ) ? 'image/*' : null,
+      acceptedFiles: mimeType,
       headers:{
         'X-CSRF-TOKEN': $this.data('dropzone-csrf')
       },
