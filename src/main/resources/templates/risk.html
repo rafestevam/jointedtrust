@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html 
-xmlns:th="http://www.thymeleaf.org"
-th:lang="${#locale.language}">
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
 <head th:insert="fragments/head.html :: head('JointedTrust')"></head>
 <body th:fragment="basicLayout">
 
 	<nav th:replace="fragments/sidebar.html :: sidebar"></nav>
-	
+
 	<div class="main-content">
-		
+
 		<!-- Header -->
 		<div class="header">
 			<div class="container-fluid">
-				
+
 				<!-- Header Body -->
 				<div class="header-body">
 					<div class="row align-items-center">
@@ -25,9 +23,9 @@ th:lang="${#locale.language}">
 						<div class="col ml--3 ml-md--2">
 							<!-- Pretitle -->
 							<h6 class="header-pretitle">
-								<span th:text="#{pages.risk.show.header.pretitle}"></span>							
+								<span th:text="#{pages.risk.show.header.pretitle}"></span>
 							</h6>
-							
+
 							<!-- Title -->
 							<h1 class="header-title">
 								<span th:text="${risk.name}"></span>
@@ -38,32 +36,23 @@ th:lang="${#locale.language}">
 					<div class="row align-items-center">
 						<div class="col">
 							<ul class="nav nav-tabs nav-overflow header-tabs">
-								<li class="nav-item">
-									<a href="#overview" class="nav-link active" data-toggle="collapse" aria-expanded="false" aria-controls="overview" role="button" id="aOverview">
-										<span th:text="#{pages.risk.show.submenu.overview}"></span>
-									</a>
-								</li>	
-								<li class="nav-item">
-									<a href="#files" class="nav-link" data-toggle="false" aria-expanded="false" aria-controls="files" role="button" id="aFiles">
-										<span th:text="#{pages.risk.show.submenu.files}"></span>
-									</a>
-								</li>	
-								<li class="nav-item">
-									<a href="#assigned" class="nav-link" data-toggle="false" aria-expanded="false" aria-controls="assigned" role="button" id="aAssigned">
-										<span th:text="#{pages.risk.show.submenu.assigned}"></span>
-									</a>
-								</li>	
+								<li class="nav-item"><a href="#overview" class="nav-link active" data-toggle="collapse" aria-expanded="false" aria-controls="overview" role="button" id="aOverview"> <span th:text="#{pages.risk.show.submenu.overview}"></span>
+								</a></li>
+								<li class="nav-item"><a href="#files" class="nav-link" data-toggle="false" aria-expanded="false" aria-controls="files" role="button" id="aFiles"> <span th:text="#{pages.risk.show.submenu.files}"></span>
+								</a></li>
+								<li class="nav-item"><a href="#assigned" class="nav-link" data-toggle="false" aria-expanded="false" aria-controls="assigned" role="button" id="aAssigned"> <span th:text="#{pages.risk.show.submenu.assigned}"></span>
+								</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
-		
+
 		<!-- Content -->
 		<div class="container-fluid">
-		
+
 			<!-- (Overview Container) -->
 			<div class="collapse multi-collapse" id="overview">
 				<div class="row">
@@ -72,56 +61,52 @@ th:lang="${#locale.language}">
 					</div>
 				</div>
 			</div>
-		
+
 			<!-- (Files Container) -->
 			<div class="collapse multi-collapse" id="files">
 				<div class="row">
 					<div class="col-12">
-						
+
 						<!-- Files -->
 						<div class="card" data-toggle="lists" data-lists-values='["name"]'>
 							<div class="card-header">
 								<div class="row align-items-center">
-									
+
 									<div class="col">
 										<!-- List Title -->
 										<h4 class="card-header-title">
 											<span th:text="#{pages.risk.show.list.title}"></span>
 										</h4>
 									</div>
-									
+
 									<div class="col-auto">
 										<!-- Dropdown -->
 										<div class="dropdown">
 											<!-- Toggle -->
-											<a href="#!" class="small text-muted dropdown-toggle" data-toggle="dropdown">
-												<span th:text="#{pages.risk.show.list.order}"></span>
+											<a href="#!" class="small text-muted dropdown-toggle" data-toggle="dropdown"> <span th:text="#{pages.risk.show.list.order}"></span>
 											</a>
 											<!-- Menu -->
 											<div class="dropdown-menu">
-												<a class="dropdown-item sort" data-sort="name" href="#!">
-													<span th:text="#{pages.risk.show.list.order.asc}"></span>
-												</a>
-												<a class="dropdown-item sort" data-sort="name" href="#!">
-													<span th:text="#{pages.risk.show.list.order.desc}"></span>
+												<a class="dropdown-item sort" data-sort="name" href="#!"> <span th:text="#{pages.risk.show.list.order.asc}"></span>
+												</a> <a class="dropdown-item sort" data-sort="name" href="#!"> <span th:text="#{pages.risk.show.list.order.desc}"></span>
 												</a>
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="col-auto">
 										<!-- Upload Button -->
-										<a href="#!" class="btn btn-sm btn-primary">
-											<span th:text="#{pages.risk.show.list.button.upload}"></span>
+										<a href="#!" class="btn btn-sm btn-primary" id="attachButton"> <span th:text="#{pages.risk.show.list.button.upload}"></span>
 										</a>
 									</div>
-									
-								</div><!-- / .row -->
+
+								</div>
+								<!-- / .row -->
 							</div>
 							<div class="card-header">
 								<div class="row">
 									<div class="col-12">
-									
+
 										<!-- Form (Search) -->
 										<form>
 											<div class="input-group input-group-flush input-group-merge">
@@ -133,75 +118,72 @@ th:lang="${#locale.language}">
 												</div>
 											</div>
 										</form>
-									
+
 									</div>
-								</div><!-- / .row -->
+								</div>
+								<!-- / .row -->
 							</div>
 							<div class="card-body">
-								
+
 								<!-- File List -->
 								<ul class="list-group list-group-lg list-group-flush list my--4">
 									<li class="list-group-item px-0" th:each="file : ${risk.files}">
-									
+
 										<div class="row align-items-center">
 											<div class="col-auto">
-											
+
 												<!-- Avatar -->
-												<a href="#!" class="avatar avatar-lg">
-													<img th:src="@{/assets/img/illustrations/file-text.svg}" class="avatar-img rounded">
+												<a href="#!" class="avatar avatar-lg"> <img th:src="@{/assets/img/illustrations/file-text.svg}" class="avatar-img rounded">
 												</a>
-											
+
 											</div>
 											<div class="col ml--2">
-												
+
 												<!-- File Title -->
 												<h4 class="card-title mb-1 name">
 													<a href="#!"><span th:text="${file.name}"></span></a>
 												</h4>
-												
+
 												<!-- File Extension -->
 												<p class="card-text small text-muted mb-1">
 													<span th:text="#{pages.risk.show.list.filetype(${file.fileType})}"></span>
 												</p>
-												
+
 												<!-- File Upload Info -->
 												<p class="card-text small text-muted">
 													<span th:text="#{pages.risk.show.list.uploadedby(${file.uploadedBy}, ${risk.createDate})}"></span>
 												</p>
-												
+
 											</div>
 											<div class="col-auto">
 												<!-- Download Button -->
-												<a th:href="@{/risk/download(filePath=${file.address})}" class="btn btn-sm btn-white d-none d-md-inline-block">
-													<span th:text="#{pages.risk.show.list.button.download}"></span>
+												<a th:href="@{/risk/download(filePath=${file.address})}" class="btn btn-sm btn-white d-none d-md-inline-block"> <span th:text="#{pages.risk.show.list.button.download}"></span>
 												</a>
 											</div>
 											<div class="col-auto">
 												<!-- Dropdown -->
 												<div class="dropdown">
-													<a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-														<i class="fe fe-more-vertical"></i>
+													<a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fe fe-more-vertical"></i>
 													</a>
 													<!-- Menu -->
 													<div class="dropdown-menu dropdown-menu-right">
-														<a href="#!" class="dropdown-item">
-															<span th:text="#{pages.risk.show.list.dropdown.delete}"></span>
+														<a href="#!" class="dropdown-item"> <span th:text="#{pages.risk.show.list.dropdown.delete}"></span>
 														</a>
 													</div>
 												</div>
 											</div>
 										</div>
-									
+
 									</li>
 								</ul>
-								
+
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
-			
+
 			<!-- (Customize Container) -->
 			<div class="collapse multi-collapse" id="assigned">
 				<div class="row">
@@ -210,14 +192,107 @@ th:lang="${#locale.language}">
 					</div>
 				</div>
 			</div>
-		
+
 		</div>
-		
 
+	</div>
 
-		
+	<!-- File Attachment Modal -->
+	<div class="modal" id="modalFiles">
+		<div class="modal-dialog modal-dialog-centered" role="dialog" aria-hidden="true" tabindex="-1">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="row">
+
+						<div class="col">
+							<!-- Title -->
+							<h2 class="card-header-title" id="modalFilesTitle">
+								<span th:text="#{modal.file.attachment.title}"></span>
+							</h2>
+						</div>
+						<div class="col-auto">
+							<!-- Close Modal Button -->
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+					</div>
+				</div>
+				<form class="mb-4" th:action="@{/risk/rest/uploadfiles}" method="POST" enctype="multipart/form-data" id="dzForm">
+					<input type="hidden" th:attr="name='guid'" th:value="${risk.guid}" id="guid">
+					<div class="modal-body">
+						<div class="dropzone dropzone-multiple" data-toggle="dropzone" data-dropzone-multiple th:attr="data-dropzone-url=@{/risk/rest/uploadfiles}, data-dropzone-csrf=${_csrf.token}" id="dzFiles">
+							<!-- Drag and Drop Zone -->
+							<div class="fallback">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="uploadMultiDocs" multiple>
+								</div>
+							</div>
+							<!-- Files Preview -->
+							<ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush">
+								<li class="list-group-item px-0">
+									<div class="row align-items-center">
+										<div class="col-auto">
+											<div class="avatar">
+												<img class="avatar-img rounded" th:src="@{/assets/img/illustrations/file-text.svg}">
+											</div>
+										</div>
+										<div class="col ml--3">
+											<h4 class="mb-1" data-dz-name>...</h4>
+											<p class="smal text-muted mb-0" data-dz-size>...</p>
+										</div>
+										<div class="col-auto">
+											<div class="dropdown">
+												<a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fe fe-more-vertical"></i>
+												</a>
+												<div class="dropdown-menu dropdown-menu-right">
+													<a href="#" class="dropdown-item" data-dz-remove><span th:text="#{pages.risk.form.filemenu.remove}"></span></a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<!-- Submit Button -->
+						<button type="submit" class="btn btn-block btn-primary" id="dzSubmit">
+							<span th:text="#{pages.risk.load.form.button.submit}"></span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 	
+	<!-- Modal: Response Messages -->
+	<div class="modal fade" id="modalMessage" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-card card">
+					<div class="card-header">
+						<div class="row align-items-center">
+							<div class="col">
+								<!-- Modal Title -->
+								<h4 class="card-header-title" id="responseMessageTitle"></h4>
+							</div>
+							<div class="col-auto">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span class="fe fe-x-circle mr-4"></span>
+								</button>
+							</div>				
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="alert" role="alert" id="responseMessage"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<th:block th:include="fragments/scripts.html"></th:block>
 	<script th:src="@{/assets/js/showRisk.js}" type="text/javascript"></script>
 

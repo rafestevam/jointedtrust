@@ -193,21 +193,21 @@ public class RiskController {
 
 	@RequestMapping(value = "/rest/batch", method = RequestMethod.POST)
 	public ResponseEntity<?> batchByRest(@RequestParam("file") MultipartFile file) {
-		
+
 		MultiValueMap<String, Object> responseMap = new LinkedMultiValueMap<>();
 		try {
 			List<Risk> riskList = extractRisks(file);
 			riskList.forEach(risk -> {
-					risk.setGuid(getGuid());
-					riskService.save(risk);
+				risk.setGuid(getGuid());
+				riskService.save(risk);
 			});
-			
+
 			String successMessage = messageSource.getMessage("notification.risk.batch.create.success", new String[] {}, locale);
 			String successMessageTitle = messageSource.getMessage("notification.risk.create.success.title", new String[] {}, locale);
 			responseMap.add("successTitle", successMessageTitle);
 			responseMap.add("successMessage", (String) successMessage);
 			return new ResponseEntity<>(responseMap, HttpStatus.OK);
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			String errorMessage = messageSource.getMessage("notification.risk.batch.create.error", new String[] {}, locale);
 			return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -221,9 +221,9 @@ public class RiskController {
 		int count = 0;
 		while ((line = br.readLine()) != null) {
 			String[] riskData = line.split(";");
-			if(count == 0) {
+			if (count == 0) {
 				count += 1;
-				continue; //Escaping header line
+				continue; // Escaping header line
 			}
 			Risk risk = new Risk();
 			risk.setRisk_id(riskData[0]);
@@ -234,6 +234,38 @@ public class RiskController {
 			riskList.add(risk);
 		}
 		return riskList;
+	}
+
+	@RequestMapping(value = "/rest/uploadfiles", method = RequestMethod.POST)
+	public ResponseEntity<?> loadFiles(@RequestParam("file") MultipartFile[] file, @RequestParam("guid") String guid) {
+
+		System.out.println("LOAD MULTIPLE FILES IN RISK");
+		
+		MultiValueMap<String, Object> responseMap = new LinkedMultiValueMap<>();
+
+		Risk risk = riskService.findByGuid(guid);
+		
+		// Adding Files related to Risk
+		List<DocFile> fileList = risk.getFiles();
+		Map<String, String> filesMap = fileSaver.write("risk-docs", file, risk.getName());
+		filesMap.entrySet().forEach(entry -> {
+			DocFile newFile = new DocFile(entry.getKey(), entry.getValue());
+			int offset = entry.getKey().length() - 3;
+			int total = entry.getKey().length();
+			String fileType = entry.getKey().substring(offset, total);
+			newFile.setFileType(fileType.toUpperCase());
+			newFile.setUploadedBy(loggedUserService.loggedUser().getName().toUpperCase());
+			fileList.add(newFile);
+		});
+		risk.setFiles(fileList);
+		
+		riskService.save(risk);
+		String successMessage = messageSource.getMessage("notification.risk.upload.success", new String[] { risk.getName() }, locale);
+		String successMessageTitle = messageSource.getMessage("notification.risk.create.success.title", new String[] {}, locale);
+		responseMap.add("successTitle", successMessageTitle);
+		responseMap.add("successMessage", (String) successMessage);
+		return new ResponseEntity<>(responseMap, HttpStatus.OK);
+
 	}
 
 }
