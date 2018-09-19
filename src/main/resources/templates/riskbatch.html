@@ -51,9 +51,9 @@ th:lang="${#locale.language}">
 						<!-- Divider -->
 						<hr class="mt-5 mb-5">
 						
-						<form class="mb-4">
+						<form class="mb-4" id="batchForm" th:action="@{/risk/rest/batch}" method="POST" enctype="multipart/form-data">
 							<!-- Dropzone Canvas -->
-							<div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="http://" data-dropzone-mimetype="text/csv" id="dzFiles">
+							<div class="dropzone dropzone-single mb-3" data-toggle="dropzone" th:attr="data-dropzone-url=@{/risk/rest/batch}, data-dropzone-csrf=${_csrf.token}" data-dropzone-mimetype="application/vnd.ms-excel" id="dzFiles">
 								<div class="fallback">
 									<div class="custom-file">
 										<input type="file" class="custom-file-input" id="uploadBatch">
@@ -89,7 +89,36 @@ th:lang="${#locale.language}">
 		
 	</div>
 	
+	<!-- Modal: Response Messages -->
+	<div class="modal fade" id="modalMessage" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-card card">
+					<div class="card-header">
+						<div class="row align-items-center">
+							<div class="col">
+								<!-- Modal Title -->
+								<h4 class="card-header-title" id="responseMessageTitle"></h4>
+							</div>
+							<div class="col-auto">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span class="fe fe-x-circle mr-4"></span>
+								</button>
+							</div>				
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="alert" role="alert" id="responseMessage"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<th:block th:include="fragments/scripts.html"></th:block>
+	<script type="text/javascript">
+		var returnAddr = "[[@{/risk/list}]]";
+	</script>
 	<script th:src="@{/assets/js/riskBatch.js}" type="text/javascript"></script>
 
 </body>
