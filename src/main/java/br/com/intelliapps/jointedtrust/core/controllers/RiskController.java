@@ -156,7 +156,8 @@ public class RiskController {
 		}
 
 		risk.setGuid(this.getGuid());
-		// riskService.save(risk);
+		riskService.save(risk);
+		
 		String successMessage = messageSource.getMessage("notification.risk.create.success", new String[] { risk.getName() }, locale);
 		String successMessageTitle = messageSource.getMessage("notification.risk.create.success.title", new String[] {}, locale);
 		rAttr.addFlashAttribute("successMessage", successMessage);
@@ -266,6 +267,38 @@ public class RiskController {
 		responseMap.add("successMessage", (String) successMessage);
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String editRisk(@RequestParam("guid") String guid, Model model) {
+		
+		Risk risk = riskService.findByGuid(guid);
+		model.addAttribute("risk", risk);
+		
+		return "updrisk";
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public String editRisk(@Valid Risk risk, BindingResult binding, RedirectAttributes rAttr, Model model) {
+		
+		if (binding.hasErrors()) {
+			return this.riskForm(risk, model);
+		}
+
+		if (riskService.existsByRiskId(risk.getRisk_id())) {
+			binding.rejectValue("risk_id", "valid.risk.error.riskid.exists");
+			return this.riskForm(risk, model);
+		}
+
+		risk.setGuid(this.getGuid());
+		riskService.save(risk);
+		
+		String successMessage = messageSource.getMessage("notification.risk.create.success", new String[] { risk.getName() }, locale);
+		String successMessageTitle = messageSource.getMessage("notification.risk.create.success.title", new String[] {}, locale);
+		rAttr.addFlashAttribute("successMessage", successMessage);
+		rAttr.addFlashAttribute("successMessageTitle", successMessageTitle);
+
+		return "redirect:/risk/list";
 	}
 
 }

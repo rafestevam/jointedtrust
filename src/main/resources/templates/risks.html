@@ -97,7 +97,9 @@ th:lang="${#locale.language}">
 														<i class="fe fe-more-vertical"></i>
 													</a>
 													<div class="dropdown-menu dropdown-menu-right">
-														<a href="#!" class="dropdown-item">Uma Ação</a>
+														<a th:href="@{/risk/edit(guid=${risk.guid})}" class="dropdown-item">
+															<span th:text="#{pages.risk.show.list.submenu.edit}"></span>
+														</a>
 														<a href="#!" class="dropdown-item">Outra Ação</a>
 														<a href="#!" class="dropdown-item">Extras</a>
 													</div>

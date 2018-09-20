@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+th:lang="${#locale.language}">
+<head th:insert="fragments/head.html :: head('JointedTrust')"></head>
+<body th:fragment="basicLayout">
+
+	<nav th:replace="fragments/sidebar.html :: sidebar"></nav>
+	
+	<div class="main-content">
+	
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-12 col-lg-10 col-xl-8">
+					
+					<!-- Header -->
+					<div class="header mt-md-5">
+						<div class="header-body">
+							<!-- Header Container -->
+							<div class="row align-items-center">
+								<div class="col">
+									<!-- Pretitle -->
+									<h6 class="header-pretitle">
+										<span th:text="#{pages.risk.header.pretitle}"></span>
+									</h6>
+									<!-- Title -->
+									<h1 class="header-title">
+										<span th:text="#{pages.risk.update.header.title}"></span>
+									</h1>
+								</div>
+							</div>	
+							<!-- Submenu Container -->
+							<div class="row align-items-center">
+								<div class="col">
+									<!-- Sub Menu -->
+									<ul class="nav nav-tabs nav-overflow header-tabs">
+										<!-- Basic Data -->
+										<li class="nav-item">
+											<a href="#formBasic" class="nav-link active" data-toggle="collapse" aria-expanded="false" aria-controls="formBasic" role="button" id="aFormBasic">
+												<span th:text="#{pages.risk.tab.basics}"></span>
+											</a>
+										</li>
+										<!-- Custom Data -->
+										<li class="nav-item">
+											<a href="#formCustom" class="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="formCustom" role="button" id="aFormCustom">
+												<span th:text="#{pages.risk.tab.custom}"></span>
+											</a>
+										</li>
+										<!-- Document Upload -->
+										<li class="nav-item">
+											<a href="#formDocument" class="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="formDocument" role="button" id="aFormDocument">
+												<span th:text="#{pages.risk.tab.documents}"></span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>				
+						</div>
+					</div>
+					
+					<!-- Form -->
+					<form class="mb-4" th:object="${risk}" method="POST" id="riskForm" enctype="multipart/form-data" th:action="@{/risk/edit}">
+						
+						<!-- Basic Data Container -->
+						<div id="formBasic" class="collapse multi-collapse">
+							<!-- Risk ID -->
+							<div class="form-group">
+								<label><span th:text="#{pages.risk.form.field.id}"></span></label>
+								<input type="text" class="form-control" th:field="*{risk_id}" th:errorclass="is-invalid">
+								<div class="invalid-feedback" id="e_risk_id"></div>
+								<div class="invalid-feedback" th:if="${#fields.hasErrors('risk_id')}" th:errors="*{risk_id}" ></div>
+							</div>
+	
+							<!-- Risk Name -->
+							<div class="form-group">
+								<label><span th:text="#{pages.risk.form.field.name}"></span></label>
+								<input type="text" class="form-control" th:field="*{name}" th:errorclass="is-invalid">
+								<div class="invalid-feedback" id="e_name"></div>
+								<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>
+							</div>
+							
+							<!-- Risk Description -->
+							<div class="form-group">
+								<label><span th:text="#{pages.risk.form.field.description}"></span></label>
+								<div data-toggle="quill" th:attr="data-quill-placeholder=#{pages.risk.form.field.description.ph}" id="quillDescription"></div>
+								<textarea th:field="*{description}" style="display:none"></textarea>
+							</div>
+							
+							<!-- Risk Cause -->
+							<div class="form-group">
+								<label><span th:text="#{pages.risk.form.field.cause}"></span></label>
+								<div data-toggle="quill" th:attr="data-quill-placeholder=#{pages.risk.form.field.cause.ph}" id="quillCause"></div>
+								<textarea th:field="*{cause}" style="display:none"></textarea>
+							</div>
+							
+							<!-- Risk Consequence -->
+							<div class="form-group">
+								<label><span th:text="#{pages.risk.form.field.consequence}"></span></label>
+								<div data-toggle="quill" th:attr="data-quill-placeholder=#{pages.risk.form.field.consequence.ph}" id="quillConsequence"></div>
+								<textarea th:field="*{consequence}" style="display:none"></textarea>
+							</div>
+						</div>
+						
+						<!-- Custom Data Container -->
+						<div id="formCustom" class="collapse multi-collapse">
+							<h1>CUSTOM FIELDS CONTAINER</h1>
+						</div>
+						
+						<!-- Documents Container -->
+						<div id="formDocument" class="collapse multi-collapse">
+							<h1>DOCUMENTS UPLOAD CONTAINER</h1>
+							<div class="dropzone dropzone-multiple" data-toggle="dropzone" data-dropzone-multiple th:attr="data-dropzone-url=@{/risk/rest/create}, data-dropzone-csrf=${_csrf.token}" id="dzFiles">
+								<!-- Drag and Drop Zone -->
+								<div class="fallback">
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" id="uploadMultiDocs" multiple>
+									</div>
+								</div>
+								<!-- Files Preview -->
+								<ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush">
+									<li class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col-auto">
+												<div class="avatar">
+													<img class="avatar-img rounded" th:src="@{/assets/img/illustrations/file-text.svg}">
+												</div>
+											</div>
+											<div class="col ml--3">
+												<h4 class="mb-1" data-dz-name>...</h4>
+												<p class="smal text-muted mb-0" data-dz-size>...</p>
+											</div>
+											<div class="col-auto">
+												<div class="dropdown">
+													<a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+														<i class="fe fe-more-vertical"></i>
+													</a>
+													<div class="dropdown-menu dropdown-menu-right">
+														<a href="#" class="dropdown-item" data-dz-remove><span th:text="#{pages.risk.form.filemenu.remove}"></span></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						
+						<!-- Divider -->
+						<hr class="mt-5 mb-5">
+						
+						<!-- Submit Button -->
+						<button type="submit" class="btn btn-block btn-primary" id="dzSubmit">
+							<span th:text="#{pages.risk.form.button.submit}"></span>
+						</button>
+						<!-- Cancel Button -->
+						<a href="#" onClick="window.history.go(-1)" class="btn btn-block btn-link text-muted">
+							<span th:text="#{pages.risk.form.button.cancel}"></span>
+						</a>
+					
+					</form>
+				
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	<!-- Modal: Response Messages -->
+	<div class="modal fade" id="modalMessage" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-card card">
+					<div class="card-header">
+						<div class="row align-items-center">
+							<div class="col">
+								<!-- Modal Title -->
+								<h4 class="card-header-title" id="responseMessageTitle"></h4>
+							</div>
+							<div class="col-auto">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span class="fe fe-x-circle mr-4"></span>
+								</button>
+							</div>				
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="alert" role="alert" id="responseMessage"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<th:block th:include="fragments/scripts.html"></th:block>
+	
+	<script type="text/javascript">
+		var returnAddr = "[[@{/risk/list}]]";
+	</script>
+	<script th:src="@{/assets/js/riskForm.js}" type="text/javascript"></script>
+	<script th:src="@{/assets/js/updateRisk.js}" type="text/javascript"></script>
+
+</body>
+</html>
