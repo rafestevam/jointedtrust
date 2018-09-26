@@ -261,7 +261,7 @@ public class RiskController {
 		risk.setFiles(fileList);
 		
 		riskService.save(risk);
-		String successMessage = messageSource.getMessage("notification.risk.upload.success", new String[] { risk.getName() }, locale);
+		String successMessage = messageSource.getMessage("notification.risk.update.success", new String[] { risk.getName() }, locale);
 		String successMessageTitle = messageSource.getMessage("notification.risk.create.success.title", new String[] {}, locale);
 		responseMap.add("successTitle", successMessageTitle);
 		responseMap.add("successMessage", (String) successMessage);
@@ -293,12 +293,59 @@ public class RiskController {
 		risk.setGuid(this.getGuid());
 		riskService.save(risk);
 		
-		String successMessage = messageSource.getMessage("notification.risk.create.success", new String[] { risk.getName() }, locale);
+		String successMessage = messageSource.getMessage("notification.risk.update.success", new String[] { risk.getName() }, locale);
 		String successMessageTitle = messageSource.getMessage("notification.risk.create.success.title", new String[] {}, locale);
 		rAttr.addFlashAttribute("successMessage", successMessage);
 		rAttr.addFlashAttribute("successMessageTitle", successMessageTitle);
 
 		return "redirect:/risk/list";
+	}
+	
+	@RequestMapping(value = "/rest/edit", method = RequestMethod.POST)
+	public ResponseEntity<?> editRiskByRest(@Valid Risk risk, BindingResult binding, @RequestParam MultipartFile[] file, Model model) {
+		System.out.println(file.length);
+		
+		Risk updRisk = riskService.findByGuid(risk.getGuid());
+
+		MultiValueMap<String, Object> responseMap = new LinkedMultiValueMap<>();
+
+		if (binding.hasErrors()) {
+			binding.getFieldErrors().stream().forEach(e -> {
+				String errorMessage = messageSource.getMessage(e.getCode(), new String[] {}, locale);
+				responseMap.add(e.getField(), errorMessage);
+			});
+			return new ResponseEntity<>(responseMap, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+//		if (riskService.existsByRiskId(risk.getRisk_id())) {
+//			String errorMessage = messageSource.getMessage("valid.risk.error.riskid.exists", new String[] {}, locale);
+//			responseMap.add("risk_id", errorMessage);
+//			return new ResponseEntity<>(responseMap, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//
+//		risk.setGuid(this.getGuid());
+
+		// Adding Files related to Risk
+		List<DocFile> fileList = updRisk.getFiles();
+		Map<String, String> filesMap = fileSaver.write("risk-docs", file, risk.getName());
+		filesMap.entrySet().forEach(entry -> {
+			DocFile newFile = new DocFile(entry.getKey(), entry.getValue());
+			int offset = entry.getKey().length() - 3;
+			int total = entry.getKey().length();
+			String fileType = entry.getKey().substring(offset, total);
+			newFile.setFileType(fileType.toUpperCase());
+			newFile.setUploadedBy(loggedUserService.loggedUser().getName().toUpperCase());
+			fileList.add(newFile);
+		});
+		risk.setFiles(fileList);
+
+		riskService.save(risk);
+		String successMessage = messageSource.getMessage("notification.risk.update.success", new String[] { risk.getName() }, locale);
+		String successMessageTitle = messageSource.getMessage("notification.risk.create.success.title", new String[] {}, locale);
+
+		responseMap.add("successTitle", successMessageTitle);
+		responseMap.add("successMessage", (String) successMessage);
+		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 	}
 
 }

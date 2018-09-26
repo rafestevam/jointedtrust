@@ -45,9 +45,11 @@ public class Risk {
 	@ElementCollection
 	private List<DocFile> files = new ArrayList<DocFile>();
 	
+	@Column(name = "created_date", nullable = false, updatable = false)
 	@CreatedDate
 	private Date createDate;
 	
+	@Column(name = "created_by", nullable = false, updatable = false)
 	@CreatedBy
 	private String createdBy;
 	

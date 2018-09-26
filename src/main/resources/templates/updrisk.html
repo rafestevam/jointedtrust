@@ -60,7 +60,7 @@ th:lang="${#locale.language}">
 					
 					<!-- Form -->
 					<form class="mb-4" th:object="${risk}" method="POST" id="riskForm" enctype="multipart/form-data" th:action="@{/risk/edit}">
-						
+						<input type="hidden" th:attr="name='guid'" th:value="${risk.guid}" id="guid">
 						<!-- Basic Data Container -->
 						<div id="formBasic" class="collapse multi-collapse">
 							<!-- Risk ID -->
@@ -109,7 +109,7 @@ th:lang="${#locale.language}">
 						<!-- Documents Container -->
 						<div id="formDocument" class="collapse multi-collapse">
 							<h1>DOCUMENTS UPLOAD CONTAINER</h1>
-							<div class="dropzone dropzone-multiple" data-toggle="dropzone" data-dropzone-multiple th:attr="data-dropzone-url=@{/risk/rest/create}, data-dropzone-csrf=${_csrf.token}" id="dzFiles">
+							<div class="dropzone dropzone-multiple" data-toggle="dropzone" data-dropzone-multiple th:attr="data-dropzone-url=@{/risk/rest/edit}, data-dropzone-csrf=${_csrf.token}" id="dzFiles">
 								<!-- Drag and Drop Zone -->
 								<div class="fallback">
 									<div class="custom-file">
@@ -143,6 +143,34 @@ th:lang="${#locale.language}">
 									</li>
 								</ul>
 							</div>
+							<div class="dz-box">
+								<!-- Existent Files Preview -->
+								<ul class="list-group list-group-lg list-group-flush">
+									<li class="list-group-item px-0" th:each="file : ${risk.files}">
+										<div class="row align-items-center">
+											<div class="col-auto">
+												<div class="avatar">
+													<img class="avatar-img rounded" th:src="@{/assets/img/illustrations/file-text.svg}">
+												</div>
+											</div>
+											<div class="col ml--3">
+												<h4 class="mb-1" data-dz-name><span th:text="${file.name}"></span></h4>
+												<p class="smal text-muted mb-0" data-dz-size>...</p>
+											</div>
+											<div class="col-auto">
+												<div class="dropdown">
+													<a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+														<i class="fe fe-more-vertical"></i>
+													</a>
+													<div class="dropdown-menu dropdown-menu-right">
+														<a href="#" class="dropdown-item" data-dz-remove><span th:text="#{pages.risk.form.filemenu.remove}"></span></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
 						</div>
 						
 						<!-- Divider -->
@@ -150,7 +178,7 @@ th:lang="${#locale.language}">
 						
 						<!-- Submit Button -->
 						<button type="submit" class="btn btn-block btn-primary" id="dzSubmit">
-							<span th:text="#{pages.risk.form.button.submit}"></span>
+							<span th:text="#{pages.risk.update.form.button.submit}"></span>
 						</button>
 						<!-- Cancel Button -->
 						<a href="#" onClick="window.history.go(-1)" class="btn btn-block btn-link text-muted">

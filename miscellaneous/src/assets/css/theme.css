@@ -18163,9 +18163,12 @@ button:focus
 
 .dz-preview-multiple .list-group-item:last-child
 {
+	/*
     padding-bottom: 0;
-
-    border-bottom: 0;
+	border-bottom: 0;
+	*/
+	padding-bottom: 1.5rem;
+	border-bottom: 1px solid;
 }
 
 [data-dz-size] strong
