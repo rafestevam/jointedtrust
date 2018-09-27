@@ -216,8 +216,10 @@ public class RiskController {
 	}
 
 	private List<Risk> extractRisks(MultipartFile file) throws Exception {
+		String str1 = messageSource.getMessage("quill.str1", new String[] {}, locale);
+		String str2 = messageSource.getMessage("quill.str2", new String[] {}, locale);
 		List<Risk> riskList = new ArrayList<Risk>();
-		BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
+		BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream(), "UTF-8"));
 		String line;
 		int count = 0;
 		while ((line = br.readLine()) != null) {
@@ -229,9 +231,9 @@ public class RiskController {
 			Risk risk = new Risk();
 			risk.setRisk_id(riskData[0]);
 			risk.setName(riskData[1]);
-			risk.setDescription(riskData[2]);
-			risk.setCause(riskData[3]);
-			risk.setConsequence(riskData[4]);
+			risk.setDescription(riskData[2].isEmpty() ? "" : str1 + riskData[2] + str2);
+			risk.setCause(riskData[3].isEmpty() ? "" : str1 + riskData[3] + str2);
+			risk.setConsequence(riskData[4].isEmpty() ? "" : str1 + riskData[4] + str2);
 			riskList.add(risk);
 		}
 		return riskList;
@@ -285,12 +287,12 @@ public class RiskController {
 			return this.riskForm(risk, model);
 		}
 
-		if (riskService.existsByRiskId(risk.getRisk_id())) {
-			binding.rejectValue("risk_id", "valid.risk.error.riskid.exists");
-			return this.riskForm(risk, model);
-		}
-
-		risk.setGuid(this.getGuid());
+//		if (riskService.existsByRiskId(risk.getRisk_id())) {
+//			binding.rejectValue("risk_id", "valid.risk.error.riskid.exists");
+//			return this.riskForm(risk, model);
+//		}
+//
+//		risk.setGuid(this.getGuid());
 		riskService.save(risk);
 		
 		String successMessage = messageSource.getMessage("notification.risk.update.success", new String[] { risk.getName() }, locale);
